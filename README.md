@@ -1,2 +1,2 @@
-## cancer research
+## Cancer Research
 ### predicting drug-response curves
