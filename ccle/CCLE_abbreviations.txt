@@ -1,0 +1,5 @@
+CCLE = Cancer Cell Line Encyclopedia 
+
+prof1.csv = CCLE_NP24.2009_profiling_2012.02.20.csv
+prof2.csv = CCLE_NP24.2009_Drug_data_2015.02.24.csv
+prof3.xls = CCLE_GNF_data_090613.xls
