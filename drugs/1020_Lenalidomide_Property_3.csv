@@ -1,0 +1,23 @@
+,Property,Value,Probability
+0,Human Intestinal Absorption,+,0.9958
+1,Blood Brain Barrier,+,0.9372
+2,Caco-2 permeable,-,0.5981
+3,P-glycoprotein substrate,Substrate,0.6845
+4,P-glycoprotein inhibitor I,Inhibitor,0.6012
+5,P-glycoprotein inhibitor II,Non-inhibitor,0.8927
+6,Renal organic cation transporter,Non-inhibitor,0.726
+7,CYP450 2C9 substrate,Non-substrate,0.8861
+8,CYP450 2D6 substrate,Non-substrate,0.7878
+9,CYP450 3A4 substrate,Substrate,0.5855
+10,CYP450 1A2 substrate,Non-inhibitor,0.8746
+11,CYP450 2C9 inhibitor,Non-inhibitor,0.8405
+12,CYP450 2D6 inhibitor,Non-inhibitor,0.8806
+13,CYP450 2C19 inhibitor,Non-inhibitor,0.78
+14,CYP450 3A4 inhibitor,Non-inhibitor,0.7469
+15,CYP450 inhibitory promiscuity,Low CYP Inhibitory Promiscuity,0.843
+16,Ames test,Non AMES toxic,0.8268
+17,Carcinogenicity,Non-carcinogens,0.9068
+18,Biodegradation,Not ready biodegradable,0.9967
+19,Rat acute toxicity,"2.5145 LD50, mol/kg",Not applicable
+20,hERG inhibition (predictor I),Weak inhibitor,0.9803
+21,hERG inhibition (predictor II),Non-inhibitor,0.5098

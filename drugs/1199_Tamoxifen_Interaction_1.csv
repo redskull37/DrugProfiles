@@ -1,0 +1,33 @@
+,Interacting Gene/Enzyme,Allele name,Genotype(s),Defining Change(s),Type(s),Description,Details
+0,Cytochrome P450 2D6,CYP2D6*4,(A;A),"A Allele, homozygote",Effect Directly Studied,Patients with this genotype have reduced metabolism of tamoxifen resulting in reduced plasma concentrations its active form endoxifen.,Details
+1,Coagulation factor V,---,(A;A) / (A;G),A allele,ADR Directly Studied,Patients with this genotype have increased risk of a thromboembolic event with tamoxifen.,Details
+2,Cytochrome P450 2D6,CYP2D6*3,Not Available,C allele,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+3,Cytochrome P450 2D6,CYP2D6*5,Not Available,Whole-gene deletion,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+4,Cytochrome P450 2D6,CYP2D6*6,Not Available,1707delT,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+5,Cytochrome P450 2D6,CYP2D6*7,Not Available,2935A>C,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+6,Cytochrome P450 2D6,CYP2D6*8,Not Available,1758G>T,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+7,Cytochrome P450 2D6,CYP2D6*11,Not Available,883G>C,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+8,Cytochrome P450 2D6,CYP2D6*12,Not Available,124G>A,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+9,Cytochrome P450 2D6,CYP2D6*13,Not Available,CYP2D7/2D6 hybrid gene structure,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+10,Cytochrome P450 2D6,CYP2D6*14A,Not Available,1758G>A,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+11,Cytochrome P450 2D6,CYP2D6*15,Not Available,"137insT, 137_138insT",Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+12,Cytochrome P450 2D6,CYP2D6*19,Not Available,2539_2542delAACT,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+13,Cytochrome P450 2D6,CYP2D6*20,Not Available,1973_1974insG,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+14,Cytochrome P450 2D6,CYP2D6*21,Not Available,2573insC,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+15,Cytochrome P450 2D6,CYP2D6*31,Not Available,-1770G>A / -1584C>G … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+16,Cytochrome P450 2D6,CYP2D6*36,Not Available,100C>T / -1426C>T … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+17,Cytochrome P450 2D6,CYP2D6*38,Not Available,2587_2590delGACT,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+18,Cytochrome P450 2D6,CYP2D6*40,Not Available,1863_1864ins(TTT CGC CCC)2,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+19,Cytochrome P450 2D6,CYP2D6*42,Not Available,3259_3260insGT,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+20,Cytochrome P450 2D6,CYP2D6*44,Not Available,2950G>C,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+21,Cytochrome P450 2D6,CYP2D6*47,Not Available,100C>T / -1426C>T … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+22,Cytochrome P450 2D6,CYP2D6*51,Not Available,-1584C>G / -1235A>G … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+23,Cytochrome P450 2D6,CYP2D6*56,Not Available,3201C>T,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+24,Cytochrome P450 2D6,CYP2D6*57,Not Available,100C>T / 310G>T … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+25,Cytochrome P450 2D6,CYP2D6*62,Not Available,4044C>T,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+26,Cytochrome P450 2D6,CYP2D6*68A,Not Available,-1426C>T / -1235A>G … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+27,Cytochrome P450 2D6,CYP2D6*68B,Not Available,Similar but not identical switch region compared to CYP2D6*68A. Found in tandem arrangement with CYP2D6*4.,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+28,Cytochrome P450 2D6,CYP2D6*69,Not Available,2988G>A / -1426C>T … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+29,Cytochrome P450 2D6,CYP2D6*92,Not Available,1995delC,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+30,Cytochrome P450 2D6,CYP2D6*100,Not Available,-1426C>T / -1235A>G … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details
+31,Cytochrome P450 2D6,CYP2D6*101,Not Available,-1426C>T / -1235A>G … show all,Effect Inferred,"Poor response to drug treatment, shorter time to relapse",Details

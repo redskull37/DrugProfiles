@@ -1,0 +1,13 @@
+,Interacting Gene/Enzyme,Allele name,Genotype(s),Defining Change(s),Type(s),Description,Details
+0,Thymidylate synthase,TSER*2,Not Available,(CCGCGCCACTTCGCCTGCCTCCGTCCCG)2/3/4,ADR Directly Studied,Patients with this genotype have increased risk of severe neutropenia or severe diarrhea with [drug; fluorouracil].,Details
+1,Dihydropyrimidine dehydrogenase [NADP(+)],---,(G;G) / (A;G),C allele / G allele,ADR Directly Studied,Patients with this genotype have reduced metabolism of fluorouracil and increased risk of toxicity.,Details
+2,Glutathione S-transferase P,---,(A;A) / (A;G),A allele,ADR Directly Studied,Patients with this genotype have increased risk of toxicity with fluorouracil,Details
+3,Dihydropyrimidine dehydrogenase [NADP(+)],---,(A;A) / (A;G),A allele,ADR Directly Studied,Patients with this genotype have reduced metabolism of fluorouracil and increased risk of toxicity.,Details
+4,Dihydropyrimidine dehydrogenase [NADP(+)],---,(A;A) / (A;T),T > A,ADR Directly Studied,Patients with this genotype have reduced metabolism of fluorouracil and increased risk of toxicity.,Details
+5,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*2A,(A;A) / (A;G),G > A,ADR Directly Studied,The presence of this genotype in DPYD is associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+6,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*13,(C;C) / (A;C),A > C,ADR Directly Studied,The presence of this genotype in DPYD is associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+7,Dihydropyrimidine dehydrogenase [NADP(+)],---,(A;A) / (A;T),T > A,ADR Directly Studied,The presence of this genotype in DPYD is associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+8,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*4,(G;G) / (A:G),G > A,ADR Directly Studied,The presence of this genotype in DPYD may be associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+9,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*5,(G;G) / (A;G),A > G,ADR Directly Studied,The presence of this genotype in DPYD may be associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+10,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*6,(A;A) / (A;G),G > A,ADR Directly Studied,The presence of this genotype in DPYD may be associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details
+11,Dihydropyrimidine dehydrogenase [NADP(+)],DPYD*9A,(C;C) / (C;T),T > C,ADR Directly Studied,The presence of this genotype in DPYD may be associated with an increased risk of drug-related toxicity from fluorouracil therapy.,Details

@@ -1,0 +1,20 @@
+,Property,Value,Source
+0,Water Solubility,0.511 mg/mL,ALOGPS
+1,logP,1.91,ALOGPS
+2,logP,1.22,ChemAxon
+3,logS,-2.8,ALOGPS
+4,pKa (Strongest Acidic),11.71,ChemAxon
+5,pKa (Strongest Basic),3.07,ChemAxon
+6,Physiological Charge,0,ChemAxon
+7,Hydrogen Acceptor Count,4,ChemAxon
+8,Hydrogen Donor Count,1,ChemAxon
+9,Polar Surface Area,79.73 Å2,ChemAxon
+10,Rotatable Bond Count,1,ChemAxon
+11,Refractivity,94.49 m3·mol-1,ChemAxon
+12,Polarizability,36.4 Å3,ChemAxon
+13,Number of Rings,5,ChemAxon
+14,Bioavailability,1,ChemAxon
+15,Rule of Five,Yes,ChemAxon
+16,Ghose Filter,Yes,ChemAxon
+17,Veber's Rule,No,ChemAxon
+18,MDDR-like Rule,No,ChemAxon
