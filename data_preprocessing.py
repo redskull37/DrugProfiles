@@ -77,3 +77,23 @@ def ShowResponseCurves(df, plots_in_row, plots_in_column, x_columns, y_columns, 
            
     except:
         print("ERROR: Number of indexes does not correspond to number of graphs to plot")
+        
+def ShowResponseCurvesCCLE(df, plots_in_row, plots_in_column, x_column, y_column, start_index=0, indexes=[]):
+ 
+                
+    fig = plt.figure(figsize=(14, 11))
+    fig.subplots_adjust(hspace=0.4, wspace=0.4)
+    n_plots= plots_in_row*plots_in_column
+    
+    if len(indexes) ==0:
+        indexes =df.index[start_index : start_index+n_plots]
+
+    for i, ind in list(enumerate(indexes)):
+        x = np.array(df.loc[ind, x_column].split(","), dtype = "float32")
+        y = np.array(df.loc[ind, y_column].split(","), dtype = "float32")
+                
+        ax = fig.add_subplot(plots_in_row, plots_in_column, i+1)
+        ax.scatter(x,y)
+        ax.set_title(str(ind)+"_"+str(df.loc[ind, "Compound"])+"_"+df.loc[ind, "CCLE Cell Line Name"])
+        ax.set_xlabel("Doses (uM)")
+        ax.set_ylabel("Activity Data (median)")
