@@ -247,8 +247,8 @@ def compute_r2_score(df, x_columns, y_columns, fitting_parameters, fitting_funct
     fitting_function_object = functions[fitting_function]
     r2_scores=np.zeros(len(df.index))
     for i in range(len(df.index)):
-        x = df.loc[df.index[i], x_columns]
-        y = df.loc[df.index[i], y_columns]
+        x = df.loc[df.index[i], x_columns].values.astype("float32")
+        y = df.loc[df.index[i], y_columns].values.astype("float32")
         if type(fitting_parameters) == str:
             fit_param = df.loc[df.index[i], fitting_parameters]
         else:
