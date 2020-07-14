@@ -1,37 +1,26 @@
 Conda uses environments to load different sets of Python packages
 type conda env list to see the environments availible.
-2020-07-14 18:23:20 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2020-07-14 23:52:35 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 
-Finding optimal parameters for just drug profiles and cell lines
-linear kernel, best values for parameter: alpha
-{1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
-
-linear kernel: Execution time: 59.441 seconds
-sigmoid kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
-sigmoid kernel, best values for parameter: alpha
-{1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}
-sigmoid kernel, best values for parameter: coef0
-{1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}
-
-sigmoid kernel: Execution time: 152.789 seconds
-
-rbf kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
-rbf kernel, best values for parameter: alpha
-{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
-rbf kernel, best values for parameter: coef0
-{1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
-
-rbf kernel: Execution time: 171.759 seconds
-
-polynomial kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
-polynomial kernel, best values for parameter: degree
-{1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}
-polynomial kernel, best values for parameter: alpha
-{1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
-
-polynomial kernel: Execution time: 92.277 seconds
-additive_chi2 kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
+Finding optimal parameters for drug profiles, cell lines and drug features
+Target_Pathway
+Traceback (most recent call last):
+  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 401, in <module>
+    results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, display_results=False)
+  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 226, in TuneParameters
+    display_results=display_results)
+  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 128, in RunCrossValidation
+    mse = LeaveOneOutError(kernel_model, X_train, y_train, metrics="mse")
+  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 38, in LeaveOneOutError
+    model = kernel_model.fit(X_train_loo, y_train_loo)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/sklearn/kernel_ridge.py", line 152, in fit
+    y_numeric=True)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/sklearn/utils/validation.py", line 755, in check_X_y
+    estimator=estimator)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/sklearn/utils/validation.py", line 531, in check_array
+    array = np.asarray(array, order=order, dtype=dtype)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/numpy/core/_asarray.py", line 85, in asarray
+    return array(a, dtype, copy=False, order=order)
+ValueError: could not convert string to float: 'Other'
+2020-07-14 23:52:39 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-14 23:52:39 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-0a88e15e-4b84-48d4-bd9d-29b851fa74dd

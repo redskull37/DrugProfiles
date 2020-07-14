@@ -47,7 +47,7 @@ def LeaveOneOutError(kernel_model, X, y, metrics = "mse"):
 
 # gamma for RBF, laplacian, polynomial, exponential chi2 and sigmoid kernels
 
-def RunCrossValidation(merged_df, drug_ids, number_coefficients, kernel='linear', param_tested = "alpha", 
+def RunCrossValidation(merged_df, drug_ids, number_coefficients, column_not_to_use =[], kernel='linear', param_tested = "alpha", 
                        param_tested_values = [], alpha=1, gamma=None, degree=3, coef0=1,
                       display_results=True):
     
@@ -55,8 +55,7 @@ def RunCrossValidation(merged_df, drug_ids, number_coefficients, kernel='linear'
     param2 = ["param" +str(i) for i in range(10)] 
     norm_response  = ["norm_cells_"+str(i) for i in range(10)]
     con_columns  = ["fd_num_"+str(i) for i in range(10)]
-
-    not_X_columns = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID"]+ param1 + param2 + norm_response + con_columns
+    not_X_columns = param1 + param2 + norm_response + con_columns+column_not_to_use
     X_columns = set(df.columns) - set(not_X_columns)
     
     df_errors = pd.DataFrame()
@@ -144,7 +143,7 @@ def RunCrossValidation(merged_df, drug_ids, number_coefficients, kernel='linear'
     print(best_values)
     return best_values
 
-def TestTunedKernels(merged_df, drug_ids, number_coefficients, kernel, alpha=1, gamma=None, degree=3, coef0=1, 
+def TestTunedKernels(merged_df, drug_ids, number_coefficients, kernel, column_not_to_use =[], alpha=1, gamma=None, degree=3, coef0=1, 
                      metrics = "mse", display_results=True):
     """Training and testing Kernels with the best found hyperparameters"""
     
@@ -153,7 +152,7 @@ def TestTunedKernels(merged_df, drug_ids, number_coefficients, kernel, alpha=1, 
     norm_response  = ["norm_cells_"+str(i) for i in range(10)]
     con_columns  = ["fd_num_"+str(i) for i in range(10)]
 
-    not_X_columns = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID"]+ param1 + param2 + norm_response + con_columns
+    not_X_columns = param1 + param2 + norm_response + con_columns+column_not_to_use
     X_columns = set(df.columns) - set(not_X_columns)
     
     df_errors_test = pd.DataFrame()
@@ -215,14 +214,14 @@ def TestTunedKernels(merged_df, drug_ids, number_coefficients, kernel, alpha=1, 
         display(df_results)
     return df_results
 
-def TuneParameters(merged_df, drug_ids, number_coefficients, kernels = [], param_tested = "alpha", 
+def TuneParameters(merged_df, drug_ids, number_coefficients, kernels = [], column_not_to_use =[], param_tested = "alpha", 
                        param_tested_values = [], alpha=1, gamma=None, degree=3, coef0=1,
                       display_results=True):
     results = {}
     for kernel in kernels:
         start_time = time.time()
         if kernel == "linear":
-            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, param_tested = "alpha", 
+            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, column_not_to_use=column_not_to_use, param_tested = "alpha", 
                        param_tested_values = [0.1, 0.5, 1, 5, 7, 10, 30, 50, 100, 200, 300, 500], 
                                        display_results=display_results)
             
@@ -232,15 +231,15 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, kernels = [], param
             
         elif kernel == "polynomial":
             start_time = time.time()
-            best_gamma = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', param_tested = "gamma", 
+            best_gamma = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', column_not_to_use=column_not_to_use, param_tested = "gamma", 
                                             param_tested_values = [0.00001, 0.0001, 0.01, 0.1, 1], 
                                             display_results=display_results)
 
-            best_degree = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', param_tested = "degree", 
+            best_degree = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', column_not_to_use=column_not_to_use, param_tested = "degree", 
                                              gamma= best_gamma, param_tested_values = [1,2,3,4,5], 
                                              display_results=display_results)
 
-            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', param_tested = "alpha", 
+            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel='polynomial', column_not_to_use=column_not_to_use, param_tested = "alpha", 
                                             gamma= best_gamma, degree = best_degree,
                                             param_tested_values = [0.001, 0.01, 0.1, 1, 5, 7], 
                                             display_results=display_results)            
@@ -253,16 +252,16 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, kernels = [], param
             
         else: 
             start_time = time.time()
-            best_gamma = RunCrossValidation(merged_df, drug_ids, 4, kernel = kernel, param_tested = "gamma", 
+            best_gamma = RunCrossValidation(merged_df, drug_ids, 4, kernel = kernel, column_not_to_use=column_not_to_use, param_tested = "gamma", 
                                             param_tested_values = [0.00001, 0.0001, 0.01, 0.1, 0.5, 1], 
                                             display_results=display_results)
 
             
-            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, param_tested = "alpha", 
+            best_alpha = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, column_not_to_use=column_not_to_use, param_tested = "alpha", 
                                             param_tested_values = [0.1, 0.5, 1, 5, 7, 10, 30, 50, 100, 200, 300, 500], 
                                             display_results=display_results)
             
-            best_coef0 = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, gamma= best_gamma, 
+            best_coef0 = RunCrossValidation(merged_df, drug_ids, 4, kernel=kernel, column_not_to_use=column_not_to_use, gamma= best_gamma, 
                                             param_tested = "coef0", alpha=best_alpha,
                                             param_tested_values = [-0.1, 0, 0.1, 0.5, 1,  5, 10], 
                                             display_results=display_results)
@@ -275,22 +274,22 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, kernels = [], param
             
     return  results
 
-def TrainTestBestParameters(merged_df, drug_ids, number_coefficients, kernels =[], best_parameters_dict={}, 
+def TrainTestBestParameters(merged_df, drug_ids, number_coefficients, kernels =[], column_not_to_use =[], best_parameters_dict={}, 
                      metrics = "mse", display_results=True):
     tests={}
     for kernel in kernels:
         if kernel == "linear":
-            tests["linear"] = TestTunedKernels(merged_df, drug_ids, 4, kernel='linear', 
+            tests["linear"] = TestTunedKernels(merged_df, drug_ids, 4, kernel='linear', column_not_to_use=column_not_to_use,
                                                alpha=best_parameters_dict[kernel]["alpha"], 
                                                metrics = "mse", display_results=display_results)
         elif kernel == "polynomial":
-            tests['polynomial'] = TestTunedKernels(merged_df, drug_ids, 4, kernel='polynomial', 
+            tests['polynomial'] = TestTunedKernels(merged_df, drug_ids, 4, kernel='polynomial', column_not_to_use=column_not_to_use,
                                                    alpha=best_parameters_dict[kernel]["alpha"], 
                                                    gamma= best_parameters_dict[kernel]["gamma"], 
                                                    degree=best_parameters_dict[kernel]["degree"], 
                                                    metrics = "mse", display_results=display_results)
         else:
-            tests[kernel] = TestTunedKernels(merged_df, drug_ids, 4, kernel=kernel, 
+            tests[kernel] = TestTunedKernels(merged_df, drug_ids, 4, kernel=kernel, column_not_to_use=column_not_to_use,
                                              alpha=best_parameters_dict[kernel]["alpha"], 
                                              gamma= best_parameters_dict[kernel]["gamma"],
                                              coef0= best_parameters_dict[kernel]["coef0"],
@@ -321,63 +320,76 @@ def TrainTestBestParameters(merged_df, drug_ids, number_coefficients, kernels =[
 #     filter merged data so that they have only drug with features 
 #     <br>for both data frames (original drug features and with added pubchem features)
 
+column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
+                     "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target"]
+
 ### Finding optimal parameters for just drug profiles and cell lines
 
-print("\nFinding optimal parameters for just drug profiles and cell lines")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
+#print("\nFinding optimal parameters for just drug profiles and cell lines")
+#df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
+#conc_columns= ["fd_num_"+str(i) for i in range(10)]
+#response_norm = ['norm_cells_'+str(i) for i in range(10)]
 
-gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-drug_ids = list(gr[gr > 50].index)
-len(drug_ids)
+#gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+#drug_ids = list(gr[gr > 50].index)
+#len(drug_ids)
 
-kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
-results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
+#kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
+#results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, display_results=False)
 
-print("Tuned parameters:")
-print(results)
-print("\nBetter presentation:")
-for key in results:
-    print(key,"\t", results[key])
+#print("Tuned parameters:")
+#print(results)
+#print("\nBetter presentation:")
+#for key in results:
+#    print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(merged_df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
-print("Best Kernels:", best_kernels)
+#best_kernels = TrainTestBestParameters(merged_df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, display_results=False)
+#print("Best Kernels:", best_kernels)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug description
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug description")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
+#print("\nFinding optimal parameters for drug profiles, cell lines and drug description")
+#df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 # OHE and dumnies columns for Target_Pathway - 21 new columns
-df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
+#df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
 
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
+#conc_columns= ["fd_num_"+str(i) for i in range(10)]
+#response_norm = ['norm_cells_'+str(i) for i in range(10)]
 
-gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-drug_ids = list(gr[gr > 50].index)
-len(drug_ids)
+#gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+#drug_ids = list(gr[gr > 50].index)
+#len(drug_ids)
 
-kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
-# kernels_to_test = ["additive_chi2", "laplacian"]
-results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
+#kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
+#results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, display_results=False)
 
-print("Tuned parameters:")
-print(results)
-print("\nBetter presentation:")
-for key in results:
-    print(key,"\t", results[key])
+#print("Tuned parameters:")
+#print(results)
+#print("\nBetter presentation:")
+#for key in results:
+#    print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(merged_df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
-print("Best Kernels:", best_kernels)
+#best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, #display_results=False)
+#print("Best Kernels:", best_kernels)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
 print("\nFinding optimal parameters for drug profiles, cell lines and drug features")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
+param1 = ["param_" +str(i) for i in range(10)]
+param2 = ["param" +str(i) for i in range(10)] 
+norm_response  = ["norm_cells_"+str(i) for i in range(10)]
+con_columns  = ["fd_num_"+str(i) for i in range(10)]
+not_X_columns = param1 + param2 + norm_response + con_columns+column_not_to_use
+X_columns = set(df.columns) - set(not_X_columns)
+
+for col in X_columns:
+    if df[col].dtype=="object":
+        print(col)
+    
 conc_columns= ["fd_num_"+str(i) for i in range(10)]
 response_norm = ['norm_cells_'+str(i) for i in range(10)]
 
@@ -386,7 +398,7 @@ drug_ids = list(gr[gr > 50].index)
 len(drug_ids)
 
 kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
-results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
+results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, display_results=False)
 
 print("Tuned parameters:")
 print(results)
@@ -394,5 +406,5 @@ print("\nBetter presentation:")
 for key in results:
     print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(merged_df, drug_ids, 4, kernels = kernels_to_test, display_results=False)
+best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict=results, display_results=False)
 print("Best Kernels:", best_kernels)
