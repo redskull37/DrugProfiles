@@ -1,9 +1,37 @@
 Conda uses environments to load different sets of Python packages
 type conda env list to see the environments availible.
-2020-07-14 17:52:39 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-Traceback (most recent call last):
-  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 14, in <module>
-    from IPython.display import display
-ModuleNotFoundError: No module named 'IPython'
-2020-07-14 17:52:44 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-14 17:52:44 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-edb3ce4f-07f4-4d08-b360-a5044595e84a
+2020-07-14 18:23:20 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for just drug profiles and cell lines
+linear kernel, best values for parameter: alpha
+{1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
+
+linear kernel: Execution time: 59.441 seconds
+sigmoid kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
+sigmoid kernel, best values for parameter: alpha
+{1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}
+sigmoid kernel, best values for parameter: coef0
+{1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}
+
+sigmoid kernel: Execution time: 152.789 seconds
+
+rbf kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
+rbf kernel, best values for parameter: alpha
+{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
+rbf kernel, best values for parameter: coef0
+{1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
+
+rbf kernel: Execution time: 171.759 seconds
+
+polynomial kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
+polynomial kernel, best values for parameter: degree
+{1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}
+polynomial kernel, best values for parameter: alpha
+{1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
+
+polynomial kernel: Execution time: 92.277 seconds
+additive_chi2 kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
