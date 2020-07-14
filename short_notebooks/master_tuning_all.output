@@ -1,0 +1,9 @@
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-14 17:52:39 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "/home/acq18mk/master/short_notebooks/6_parameter_tuning_all.py", line 14, in <module>
+    from IPython.display import display
+ModuleNotFoundError: No module named 'IPython'
+2020-07-14 17:52:44 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-14 17:52:44 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-edb3ce4f-07f4-4d08-b360-a5044595e84a
