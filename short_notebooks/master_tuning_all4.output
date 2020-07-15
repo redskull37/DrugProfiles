@@ -1,0 +1,22 @@
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-15 07:36:03 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for drug profiles, cell lines and drug features
+linear kernel, best values for parameter: alpha
+{1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
+
+linear kernel: Execution time: 63.565 seconds
+sigmoid kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
+sigmoid kernel, best values for parameter: alpha
+{1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}
+sigmoid kernel, best values for parameter: coef0
+{1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}
+
+sigmoid kernel: Execution time: 164.575 seconds
+
+rbf kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
+rbf kernel, best values for parameter: alpha
+{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
