@@ -320,61 +320,61 @@ def TrainTestBestParameters(merged_df, drug_ids, number_coefficients, kernels =[
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
 
-### Finding optimal parameters for just drug profiles and cell lines
-
-print("\nFinding optimal parameters for just drug profiles and cell lines\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
-
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
-
-gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-drug_ids = list(gr[gr > 50].index)
-len(drug_ids)
-
-kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
-results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, print_results=False)
-
-print("Tuned parameters:")
-print(results)
-print("\nBetter presentation:")
-for key in results:
-    print(key,"\t", results[key])
-
-best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
-print("Best Kernels:", best_kernels)
-
-### Finding optimal parameters for drug profiles, cell lines and drug description
-
-print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
-
+# Finding optimal parameters for just drug profiles and cell lines
+# 
+# print("\nFinding optimal parameters for just drug profiles and cell lines\n")
+# df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
+# 
+# conc_columns= ["fd_num_"+str(i) for i in range(10)]
+# response_norm = ['norm_cells_'+str(i) for i in range(10)]
+# 
+# gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+# drug_ids = list(gr[gr > 50].index)
+# len(drug_ids)
+# 
+# kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
+# results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, print_results=False)
+# 
+# print("Tuned parameters:")
+# print(results)
+# print("\nBetter presentation:")
+# for key in results:
+#     print(key,"\t", results[key])
+# 
+# best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
+# print("Best Kernels:", best_kernels)
+# 
+# Finding optimal parameters for drug profiles, cell lines and drug description
+# 
+# print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
+# df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
+# 
 # OHE and dumnies columns for Target_Pathway - 21 new columns
-df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
-
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
-
-gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-drug_ids = list(gr[gr > 50].index)
-len(drug_ids)
-
-kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
-results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, print_results=False)
-
-print("Tuned parameters:")
-print(results)
-print("\nBetter presentation:")
-for key in results:
-    print(key,"\t", results[key])
-
-best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
-print("Best Kernels:", best_kernels)
+# df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
+# 
+# conc_columns= ["fd_num_"+str(i) for i in range(10)]
+# response_norm = ['norm_cells_'+str(i) for i in range(10)]
+# 
+# gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+# drug_ids = list(gr[gr > 50].index)
+# len(drug_ids)
+# 
+# kernels_to_test = ["linear", "sigmoid", "rbf", "polynomial", "additive_chi2", "laplacian"]
+# results = TuneParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, print_results=False)
+# 
+# print("Tuned parameters:")
+# print(results)
+# print("\nBetter presentation:")
+# for key in results:
+#     print(key,"\t", results[key])
+# 
+# best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
+# print("Best Kernels:", best_kernels)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
 print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
 
 gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
 drug_ids = list(gr[gr > 50].index)
