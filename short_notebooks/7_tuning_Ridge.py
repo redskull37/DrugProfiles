@@ -22,7 +22,7 @@ from IPython.print import print
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
-_FOLDER = "./data/"
+_FOLDER = "/home/acq18mk/master/results/"
 
 ### Coding Part
 
@@ -224,11 +224,9 @@ def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[
 
 ### Finding optimal parameters for just drug profiles and cell lines
 
-print("\nFinding optimal parameters for just drug profiles and cell lines")
+print("\nFinding optimal parameters for just drug profiles and cell lines\n")
 df = pd.read_csv('results/merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
 
@@ -251,14 +249,12 @@ TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
 
 ### Finding optimal parameters for drug profiles, cell lines and drug description
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug description")
-df = pd.read_csv('results/merged_fitted_sigmoid4_123_with_drugs_description.csv')
+print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
 # OHE and dumnies columns for Target_Pathway - 21 new columns
 df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
 
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
 
@@ -280,11 +276,9 @@ TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug features")
-df = pd.read_csv('results/merged_fitted_sigmoid4_123_with_drugs_description.csv')
+print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
 

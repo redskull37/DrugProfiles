@@ -379,16 +379,6 @@ print("Best Kernels:", best_kernels)
 print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
-param1 = ["param_" +str(i) for i in range(10)]
-param2 = ["param" +str(i) for i in range(10)] 
-norm_response  = ["norm_cells_"+str(i) for i in range(10)]
-con_columns  = ["fd_num_"+str(i) for i in range(10)]
-not_X_columns = param1 + param2 + norm_response + con_columns+column_not_to_use
-X_columns = set(df.columns) - set(not_X_columns)
-
-conc_columns= ["fd_num_"+str(i) for i in range(10)]
-response_norm = ['norm_cells_'+str(i) for i in range(10)]
-
 gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
 drug_ids = list(gr[gr > 50].index)
 len(drug_ids)
