@@ -1,0 +1,24 @@
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-15 15:28:57 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for just drug profiles and cell lines
+
+Traceback (most recent call last):
+  File "/home/acq18mk/master/short_notebooks/7_tuning_Ridge.py", line 227, in <module>
+    df = pd.read_csv('results/merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 676, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 448, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 880, in __init__
+    self._make_engine(self.engine)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 1114, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 1891, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 374, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 673, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File results/merged_fitted_sigmoid4_123_with_drugs_description.csv does not exist: 'results/merged_fitted_sigmoid4_123_with_drugs_description.csv'
+2020-07-15 15:29:24 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-15 15:29:24 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-8fc078eb-37ba-4128-aa07-b85d0df72c51

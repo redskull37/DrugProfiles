@@ -17,7 +17,6 @@ from sklearn.metrics import mean_absolute_error
 import gc
 
 from sklearn.model_selection import LeaveOneOut
-from IPython.print import print
 
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
