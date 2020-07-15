@@ -54,3 +54,25 @@ min    0.878170   1.175497   205.227555   0.907464
 max   48.810668  17.367879  5699.666201   1.067944
 2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Shutdown hook called
 2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-1a13babf-5aa3-4cab-83c3-974d58bc83cd
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-15 21:37:58 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for drug profiles, cell lines and drug features
+
+
+Best values for parameter: solver
+{1: 'auto', 2: 'auto', 3: 'auto', 4: 'sparse_cg'}
+
+ Execution time for tuning solver: 64.152 seconds
+
+Best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+ Execution time for tuning alpha: 63.180 seconds
+      mse_coef1  mse_coef2    mse_coef3  mse_coef4
+mean   5.952140   5.229572  1403.859866   1.006119
+min    0.878170   1.175497   205.227555   0.907464
+max   48.810668  17.367879  5699.666201   1.067944
+2020-07-15 21:40:14 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-15 21:40:14 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-74a5d3b8-36a1-4b31-a1bd-ae8d258ad81d

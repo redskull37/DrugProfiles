@@ -357,3 +357,126 @@ Coefficient: 4, best kernel: linear
 Best Kernels: {1: 'linear', 2: 'linear', 3: 'additive_chi2', 4: 'linear'}
 2020-07-15 19:27:24 INFO  ShutdownHookManager:54 - Shutdown hook called
 2020-07-15 19:27:24 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-9f8f7f5f-d78b-4e3c-9a7d-bb73e4ed71f1
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-15 21:39:26 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for drug profiles, cell lines and drug features
+
+linear kernel, best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+linear kernel: Execution time: 61.207 seconds 
+
+sigmoid kernel, best values for parameter: gamma
+{1: 1e-05, 2: 0.01, 3: 1e-05, 4: 1e-05}
+sigmoid kernel, best values for parameter: alpha
+{1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
+sigmoid kernel, best values for parameter: coef0
+{1: 10.0, 2: -0.1, 3: -0.1, 4: -0.1}
+
+sigmoid kernel: Execution time: 136.772 seconds 
+
+rbf kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
+rbf kernel, best values for parameter: alpha
+{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
+rbf kernel, best values for parameter: coef0
+{1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
+
+rbf kernel: Execution time: 179.961 seconds 
+
+polynomial kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
+polynomial kernel, best values for parameter: degree
+{1: 1.0, 2: 1.0, 3: 1.0, 4: 3.0}
+polynomial kernel, best values for parameter: alpha
+{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
+
+polynomial kernel: Execution time: 96.788 seconds 
+
+additive_chi2 kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
+additive_chi2 kernel, best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}
+additive_chi2 kernel, best values for parameter: coef0
+{1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
+
+additive_chi2 kernel: Execution time: 1260.561 seconds 
+
+laplacian kernel, best values for parameter: gamma
+{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
+laplacian kernel, best values for parameter: alpha
+{1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}
+laplacian kernel, best values for parameter: coef0
+{1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
+
+laplacian kernel: Execution time: 370.045 seconds 
+
+Tuned parameters:
+{'linear': {'alpha': {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 0.01, 3: 1e-05, 4: 1e-05}, 'coef0': {1: 10.0, 2: -0.1, 3: -0.1, 4: -0.1}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 3.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
+
+Better presentation:
+linear 	 {'alpha': {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}}
+sigmoid 	 {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 0.01, 3: 1e-05, 4: 1e-05}, 'coef0': {1: 10.0, 2: -0.1, 3: -0.1, 4: -0.1}}
+rbf 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
+polynomial 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 3.0}}
+additive_chi2 	 {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
+laplacian 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
+      linear_mse_coef1  linear_mse_coef2  linear_mse_coef3  linear_mse_coef4
+mean          5.951737          5.228919       1403.859866          1.006111
+min           0.878072          1.175189        205.227555          0.907457
+max          48.807248         17.367904       5699.666201          1.067931
+      sigmoid_mse_coef1  ...  sigmoid_mse_coef4
+mean           4.386298  ...           1.002072
+min            0.742900  ...           0.906465
+max           32.994555  ...           1.060329
+
+[3 rows x 4 columns]
+      rbf_mse_coef1  rbf_mse_coef2  rbf_mse_coef3  rbf_mse_coef4
+mean       4.070173       4.366293    1403.859893       1.002342
+min        0.703610       0.845050     205.227777       0.906720
+max       29.929189      17.210427    5699.666201       1.059800
+      polynomial_mse_coef1  ...  polynomial_mse_coef4
+mean              5.158380  ...              1.005641
+min               0.790053  ...              0.908008
+max              40.997718  ...              1.067474
+
+[3 rows x 4 columns]
+      additive_chi2_mse_coef1  ...  additive_chi2_mse_coef4
+mean                17.968438  ...                 1.019270
+min                  1.149120  ...                 0.913939
+max                176.179126  ...                 1.105897
+
+[3 rows x 4 columns]
+      laplacian_mse_coef1  ...  laplacian_mse_coef4
+mean             4.070173  ...             1.002342
+min              0.703610  ...             0.906720
+max             29.929189  ...             1.059800
+
+[3 rows x 4 columns]
+         linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
+mean   5.951737   4.386298   4.070173    5.158380      17.968438   4.070173
+min    0.878072   0.742900   0.703610    0.790053       1.149120   0.703610
+max   48.807248  32.994555  29.929189   40.997718     176.179126  29.929189
+Coefficient: 1, best kernel: rbf
+         linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
+mean   5.228919   4.981267   4.366293    4.837087       6.981074   4.366293
+min    1.175189   0.973509   0.845050    0.919154       1.659663   0.845050
+max   17.367904  17.141131  17.210427   17.139602      17.394087  17.210427
+Coefficient: 2, best kernel: rbf
+           linear      sigmoid  ...  additive_chi2    laplacian
+mean  1403.859866  1403.859873  ...    1403.859864  1403.859893
+min    205.227555   205.227622  ...     205.227498   205.227777
+max   5699.666201  5699.666201  ...    5699.666201  5699.666201
+
+[3 rows x 6 columns]
+Coefficient: 3, best kernel: additive_chi2
+        linear   sigmoid       rbf  polynomial  additive_chi2  laplacian
+mean  1.006111  1.002072  1.002342    1.005641       1.019270   1.002342
+min   0.907457  0.906465  0.906720    0.908008       0.913939   0.906720
+max   1.067931  1.060329  1.059800    1.067474       1.105897   1.059800
+Coefficient: 4, best kernel: sigmoid
+Best Kernels: {1: 'rbf', 2: 'rbf', 3: 'additive_chi2', 4: 'sigmoid'}
+2020-07-15 22:14:38 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-15 22:14:38 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-94923137-ad3e-40b2-ad0f-08798bd4e219
