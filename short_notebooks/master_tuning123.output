@@ -1,94 +1,0 @@
-Conda uses environments to load different sets of Python packages
-type conda env list to see the environments availible.
-2020-07-07 08:10:29 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-Original dataset: (225384, 44)
-1st filtration (Ensure that all the response are less than 1): Filtered dataset: (63325, 44)
-2d filtration (Ensure that first and last points form plateus): Filtered dataset: (6321, 46)
-3d stage filtration (Specified location of the plateus): Filtered dataset: (2776, 46)
-  0%|          | 0/2776 [00:00<?, ?it/s]  0%|          | 1/2776 [00:01<52:19,  1.13s/it]  1%|▏         | 40/2776 [00:01<36:08,  1.26it/s]  3%|▎         | 87/2776 [00:01<24:53,  1.80it/s]  5%|▍         | 136/2776 [00:01<17:08,  2.57it/s]  7%|▋         | 198/2776 [00:01<11:44,  3.66it/s]  9%|▉         | 248/2776 [00:01<08:04,  5.21it/s] 11%|█▏        | 313/2776 [00:01<05:31,  7.42it/s] 13%|█▎        | 373/2776 [00:01<03:47, 10.54it/s] 15%|█▌        | 425/2776 [00:01<02:37, 14.92it/s] 17%|█▋        | 476/2776 [00:02<01:49, 21.03it/s] 19%|█▉        | 540/2776 [00:02<01:15, 29.62it/s] 21%|██▏       | 594/2776 [00:02<00:53, 40.99it/s] 23%|██▎       | 644/2776 [00:02<00:38, 55.52it/s] 25%|██▍       | 689/2776 [00:02<00:27, 75.32it/s] 27%|██▋       | 738/2776 [00:02<00:20, 100.92it/s] 28%|██▊       | 784/2776 [00:02<00:15, 129.06it/s] 31%|███       | 847/2776 [00:02<00:11, 169.37it/s] 33%|███▎      | 911/2776 [00:02<00:08, 216.98it/s] 35%|███▌      | 973/2776 [00:03<00:06, 269.25it/s] 37%|███▋      | 1038/2776 [00:03<00:05, 326.39it/s] 40%|███▉      | 1103/2776 [00:03<00:04, 383.68it/s] 42%|████▏     | 1165/2776 [00:03<00:03, 431.88it/s] 44%|████▍     | 1226/2776 [00:03<00:03, 451.35it/s] 46%|████▋     | 1284/2776 [00:03<00:03, 435.06it/s] 49%|████▊     | 1348/2776 [00:03<00:02, 479.86it/s] 51%|█████     | 1409/2776 [00:03<00:02, 511.65it/s] 53%|█████▎    | 1472/2776 [00:03<00:02, 541.99it/s] 55%|█████▌    | 1531/2776 [00:04<00:02, 495.73it/s] 57%|█████▋    | 1595/2776 [00:04<00:02, 530.97it/s] 60%|█████▉    | 1654/2776 [00:04<00:02, 547.26it/s] 62%|██████▏   | 1718/2776 [00:04<00:01, 569.81it/s] 64%|██████▍   | 1778/2776 [00:04<00:01, 575.43it/s] 66%|██████▌   | 1837/2776 [00:04<00:01, 541.81it/s] 68%|██████▊   | 1901/2776 [00:04<00:01, 565.98it/s] 71%|███████   | 1959/2776 [00:04<00:01, 507.57it/s] 73%|███████▎  | 2017/2776 [00:04<00:01, 506.30it/s] 75%|███████▍  | 2080/2776 [00:05<00:01, 536.93it/s] 77%|███████▋  | 2143/2776 [00:05<00:01, 561.21it/s] 79%|███████▉  | 2206/2776 [00:05<00:00, 577.63it/s] 82%|████████▏ | 2269/2776 [00:05<00:00, 591.47it/s] 84%|████████▍ | 2329/2776 [00:05<00:00, 519.00it/s] 86%|████████▌ | 2392/2776 [00:05<00:00, 547.84it/s] 88%|████████▊ | 2449/2776 [00:05<00:00, 531.87it/s] 90%|█████████ | 2504/2776 [00:05<00:00, 522.35it/s] 92%|█████████▏| 2558/2776 [00:05<00:00, 506.87it/s] 94%|█████████▍| 2621/2776 [00:06<00:00, 535.68it/s] 96%|█████████▋| 2676/2776 [00:06<00:00, 520.55it/s] 99%|█████████▊| 2739/2776 [00:06<00:00, 548.16it/s]100%|██████████| 2776/2776 [00:06<00:00, 436.71it/s]
-Fitted data with removed unfit (2737, 48)
-Unique drugs in the filterd data: 145
-Number of drugs with more than 30 records: 11
-Number of drugs with less than 10 records: 74
-Number of drugs with only 1 record: 23
-
-Coefficients x0, L, k, b   y = 1/ (L + np.exp(-k*(x-x0)))+b
-
-Linear kernel
-linear kernel, best values for parameter: alpha
-{1: 7.0, 2: 7.0, 3: 7.0, 4: 7.0}
-linear kernel, best values for parameter: alpha
-{1: 100.0, 2: 100.0, 3: 100.0, 4: 50.0}
-linear kernel, best values for parameter: alpha
-{1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
-
-
-Sigmoid Kernel
-sigmoid kernel, best values for parameter: gamma
-{1: 0.01, 2: 0.1, 3: 0.01, 4: 0.01}
-sigmoid kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
-sigmoid kernel, best values for parameter: alpha
-{1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
-sigmoid kernel, best values for parameter: coef0
-{1: 0.5, 2: 0.5, 3: 1.0, 4: 1.0}
-sigmoid kernel, best values for parameter: coef0
-{1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
-
-RBF kernel
-rbf kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
-rbf kernel, best values for parameter: alpha
-{1: 5.0, 2: 1.0, 3: 1.0, 4: 0.1}
-
-Polynomial Kernel
-polynomial kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
-polynomial kernel, best values for parameter: degree
-{1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}
-polynomial kernel, best values for parameter: alpha
-{1: 5.0, 2: 1.0, 3: 1.0, 4: 0.01}
-
-Additive_chi2 kernel
-additive_chi2 kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
-additive_chi2 kernel, best values for parameter: alpha
-{1: 5.0, 2: 5.0, 3: 5.0, 4: 5.0}
-
-Laplacian Kernel
-best_laplacian_gamma
-laplacian kernel, best values for parameter: gamma
-{1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
-best_laplacian_alpha
-laplacian kernel, best values for parameter: alpha
-{1: 5.0, 2: 1.0, 3: 1.0, 4: 0.1}
-
-Training and testing Kernels with best parameter
-         linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
-mean   2.323494   1.874949   1.893396    1.893345       3.194499   1.893396
-min    0.031871   0.007050   0.006531    0.006532       0.007608   0.006531
-max   21.075438  16.835557  17.021843   17.021346      29.234561  17.021843
-Coefficient: 1, best kernel: sigmoid
-         linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
-mean   1.900159   1.529646   1.529463    1.529318       2.288027   1.529463
-min    0.088490   0.019060   0.019061    0.019043       0.022836   0.019061
-max   16.415473  14.932071  14.932019   14.930503      20.679175  14.932019
-Coefficient: 2, best kernel: polynomial
-           linear      sigmoid  ...  additive_chi2    laplacian
-mean   974.617806   845.568721  ...     977.030624   844.120677
-min     36.097281    15.954381  ...      38.355076    16.305156
-max   4274.912379  3080.442866  ...    3328.886137  3063.100035
-
-[3 rows x 6 columns]
-Coefficient: 3, best kernel: rbf
-        linear   sigmoid       rbf  polynomial  additive_chi2  laplacian
-mean  0.016137  0.013017  0.012869    0.012806       0.017591   0.012869
-min   0.002586  0.002057  0.002040    0.002033       0.003630   0.002040
-max   0.055266  0.036206  0.034723    0.034007       0.062782   0.034723
-Coefficient: 4, best kernel: polynomial
-
-Best Kernels
-{1: 'sigmoid', 2: 'polynomial', 3: 'rbf', 4: 'polynomial'}
-
-2020-07-07 08:28:40 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-07 08:28:40 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-511bd624-7926-43a4-9985-783ef6f0764a

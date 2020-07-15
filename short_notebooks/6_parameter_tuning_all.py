@@ -1,6 +1,3 @@
-# The idea: merge good filtered data from drug response data and the data from drug properties
-# And comparison/parameter tuning should be with the same parameters
-
 import pandas as pd
 import numpy as np
 import time
@@ -344,7 +341,7 @@ print("\nBetter presentation:")
 for key in results:
     print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=False)
+best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
 print("Best Kernels:", best_kernels)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug description
@@ -371,7 +368,7 @@ print("\nBetter presentation:")
 for key in results:
     print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=False)
+best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
 print("Best Kernels:", best_kernels)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
@@ -392,5 +389,5 @@ print("\nBetter presentation:")
 for key in results:
     print(key,"\t", results[key])
 
-best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict=results, print_results=False)
+best_kernels = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict=results, print_results=True)
 print("Best Kernels:", best_kernels)

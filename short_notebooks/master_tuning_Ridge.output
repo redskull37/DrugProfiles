@@ -1,24 +1,56 @@
 Conda uses environments to load different sets of Python packages
 type conda env list to see the environments availible.
-2020-07-15 15:28:57 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2020-07-15 17:09:25 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 
 Finding optimal parameters for just drug profiles and cell lines
 
-Traceback (most recent call last):
-  File "/home/acq18mk/master/short_notebooks/7_tuning_Ridge.py", line 227, in <module>
-    df = pd.read_csv('results/merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
-  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 676, in parser_f
-    return _read(filepath_or_buffer, kwds)
-  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 448, in _read
-    parser = TextFileReader(fp_or_buf, **kwds)
-  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 880, in __init__
-    self._make_engine(self.engine)
-  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 1114, in _make_engine
-    self._engine = CParserWrapper(self.f, **self.options)
-  File "/home/acq18mk/.conda/envs/myspark/lib/python3.6/site-packages/pandas/io/parsers.py", line 1891, in __init__
-    self._reader = parsers.TextReader(src, **kwds)
-  File "pandas/_libs/parsers.pyx", line 374, in pandas._libs.parsers.TextReader.__cinit__
-  File "pandas/_libs/parsers.pyx", line 673, in pandas._libs.parsers.TextReader._setup_parser_source
-FileNotFoundError: [Errno 2] File results/merged_fitted_sigmoid4_123_with_drugs_description.csv does not exist: 'results/merged_fitted_sigmoid4_123_with_drugs_description.csv'
-2020-07-15 15:29:24 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-15 15:29:24 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-8fc078eb-37ba-4128-aa07-b85d0df72c51
+
+Best values for parameter: solver
+{1: 'auto', 2: 'auto', 3: 'sparse_cg', 4: 'sparse_cg'}
+
+ Execution time for tuning solver: 65.427 seconds
+
+Best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+ Execution time for tuning alpha: 74.028 seconds
+      mse_coef1  mse_coef2    mse_coef3  mse_coef4
+mean   5.952140   5.229572  1403.859866   1.006119
+min    0.878170   1.175497   205.227555   0.907464
+max   48.810668  17.367879  5699.666201   1.067944
+
+Finding optimal parameters for drug profiles, cell lines and drug description
+
+
+Best values for parameter: solver
+{1: 'auto', 2: 'auto', 3: 'auto', 4: 'sparse_cg'}
+
+ Execution time for tuning solver: 70.177 seconds
+
+Best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+ Execution time for tuning alpha: 67.582 seconds
+      mse_coef1  mse_coef2    mse_coef3  mse_coef4
+mean   5.952140   5.229572  1403.859866   1.006119
+min    0.878170   1.175497   205.227555   0.907464
+max   48.810668  17.367879  5699.666201   1.067944
+
+Finding optimal parameters for drug profiles, cell lines and drug features
+
+
+Best values for parameter: solver
+{1: 'auto', 2: 'auto', 3: 'sparse_cg', 4: 'sparse_cg'}
+
+ Execution time for tuning solver: 68.733 seconds
+
+Best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+ Execution time for tuning alpha: 74.120 seconds
+      mse_coef1  mse_coef2    mse_coef3  mse_coef4
+mean   5.952140   5.229572  1403.859866   1.006119
+min    0.878170   1.175497   205.227555   0.907464
+max   48.810668  17.367879  5699.666201   1.067944
+2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-1a13babf-5aa3-4cab-83c3-974d58bc83cd

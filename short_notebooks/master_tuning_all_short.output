@@ -1,13 +1,13 @@
 Conda uses environments to load different sets of Python packages
 type conda env list to see the environments availible.
-2020-07-15 17:44:10 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2020-07-15 09:29:35 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 
 Finding optimal parameters for just drug profiles and cell lines
 
 linear kernel, best values for parameter: alpha
 {1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
 
-linear kernel: Execution time: 62.500 seconds 
+linear kernel: Execution time: 65.422 seconds 
 
 sigmoid kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
@@ -16,7 +16,7 @@ sigmoid kernel, best values for parameter: alpha
 sigmoid kernel, best values for parameter: coef0
 {1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}
 
-sigmoid kernel: Execution time: 161.441 seconds 
+sigmoid kernel: Execution time: 167.363 seconds 
 
 rbf kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -25,7 +25,7 @@ rbf kernel, best values for parameter: alpha
 rbf kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-rbf kernel: Execution time: 178.165 seconds 
+rbf kernel: Execution time: 185.140 seconds 
 
 polynomial kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
@@ -34,7 +34,7 @@ polynomial kernel, best values for parameter: degree
 polynomial kernel, best values for parameter: alpha
 {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
 
-polynomial kernel: Execution time: 96.259 seconds 
+polynomial kernel: Execution time: 98.463 seconds 
 
 additive_chi2 kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
@@ -43,7 +43,7 @@ additive_chi2 kernel, best values for parameter: alpha
 additive_chi2 kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-additive_chi2 kernel: Execution time: 1188.018 seconds 
+additive_chi2 kernel: Execution time: 1182.041 seconds 
 
 laplacian kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -52,7 +52,7 @@ laplacian kernel, best values for parameter: alpha
 laplacian kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-laplacian kernel: Execution time: 386.746 seconds 
+laplacian kernel: Execution time: 409.601 seconds 
 
 Tuned parameters:
 {'linear': {'alpha': {1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}, 'coef0': {1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
@@ -64,38 +64,6 @@ rbf 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 
 polynomial 	 {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}
 additive_chi2 	 {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
 laplacian 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
-      linear_mse_coef1  linear_mse_coef2  linear_mse_coef3  linear_mse_coef4
-mean          4.040812          3.346335       1404.151339          0.957731
-min           0.538864          0.367376        205.242959          0.856210
-max          32.522906         18.896773       5699.682942          1.051967
-      sigmoid_mse_coef1  ...  sigmoid_mse_coef4
-mean           4.386298  ...           1.003939
-min            0.742900  ...           0.907494
-max           32.994555  ...           1.064753
-
-[3 rows x 4 columns]
-      rbf_mse_coef1  rbf_mse_coef2  rbf_mse_coef3  rbf_mse_coef4
-mean       4.070173       4.366293    1403.859893       1.002342
-min        0.703610       0.845050     205.227777       0.906720
-max       29.929189      17.210427    5699.666201       1.059800
-      polynomial_mse_coef1  ...  polynomial_mse_coef4
-mean              4.386519  ...              1.002414
-min               0.742925  ...              0.906816
-max              32.996972  ...              1.059278
-
-[3 rows x 4 columns]
-      additive_chi2_mse_coef1  ...  additive_chi2_mse_coef4
-mean                17.968438  ...                 1.019270
-min                  1.149120  ...                 0.913939
-max                176.179126  ...                 1.105897
-
-[3 rows x 4 columns]
-      laplacian_mse_coef1  ...  laplacian_mse_coef4
-mean             4.070173  ...             1.002342
-min              0.703610  ...             0.906720
-max             29.929189  ...             1.059800
-
-[3 rows x 4 columns]
          linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
 mean   4.040812   4.386298   4.070173    4.386519      17.968438   4.070173
 min    0.538864   0.742900   0.703610    0.742925       1.149120   0.703610
@@ -125,7 +93,7 @@ Finding optimal parameters for drug profiles, cell lines and drug description
 linear kernel, best values for parameter: alpha
 {1: 200.0, 2: 100.0, 3: 100.0, 4: 100.0}
 
-linear kernel: Execution time: 63.030 seconds 
+linear kernel: Execution time: 64.033 seconds 
 
 sigmoid kernel, best values for parameter: gamma
 {1: 0.5, 2: 0.5, 3: 1e-05, 4: 0.01}
@@ -134,7 +102,7 @@ sigmoid kernel, best values for parameter: alpha
 sigmoid kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: 1.0, 4: 5.0}
 
-sigmoid kernel: Execution time: 151.118 seconds 
+sigmoid kernel: Execution time: 155.289 seconds 
 
 rbf kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -143,7 +111,7 @@ rbf kernel, best values for parameter: alpha
 rbf kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-rbf kernel: Execution time: 177.492 seconds 
+rbf kernel: Execution time: 186.898 seconds 
 
 polynomial kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
@@ -152,7 +120,7 @@ polynomial kernel, best values for parameter: degree
 polynomial kernel, best values for parameter: alpha
 {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
 
-polynomial kernel: Execution time: 96.151 seconds 
+polynomial kernel: Execution time: 101.228 seconds 
 
 additive_chi2 kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
@@ -161,7 +129,7 @@ additive_chi2 kernel, best values for parameter: alpha
 additive_chi2 kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-additive_chi2 kernel: Execution time: 1202.695 seconds 
+additive_chi2 kernel: Execution time: 1205.598 seconds 
 
 laplacian kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -170,7 +138,7 @@ laplacian kernel, best values for parameter: alpha
 laplacian kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-laplacian kernel: Execution time: 372.824 seconds 
+laplacian kernel: Execution time: 399.753 seconds 
 
 Tuned parameters:
 {'linear': {'alpha': {1: 200.0, 2: 100.0, 3: 100.0, 4: 100.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 0.5, 2: 0.5, 3: 1e-05, 4: 0.01}, 'coef0': {1: -0.1, 2: -0.1, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
@@ -182,38 +150,6 @@ rbf 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 
 polynomial 	 {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}
 additive_chi2 	 {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
 laplacian 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
-      linear_mse_coef1  linear_mse_coef2  linear_mse_coef3  linear_mse_coef4
-mean          4.158889          3.444704       1403.884031          0.951108
-min           0.563531          0.487658        205.233678          0.865585
-max          33.347822         18.772677       5699.666328          1.044546
-      sigmoid_mse_coef1  ...  sigmoid_mse_coef4
-mean           9.048171  ...           1.003939
-min            1.050777  ...           0.907494
-max           83.292847  ...           1.064753
-
-[3 rows x 4 columns]
-      rbf_mse_coef1  rbf_mse_coef2  rbf_mse_coef3  rbf_mse_coef4
-mean       4.070173       4.366293    1403.859893       1.002342
-min        0.703610       0.845050     205.227777       0.906720
-max       29.929189      17.210427    5699.666201       1.059800
-      polynomial_mse_coef1  ...  polynomial_mse_coef4
-mean              4.386528  ...              1.002415
-min               0.742926  ...              0.906817
-max              32.997058  ...              1.059282
-
-[3 rows x 4 columns]
-      additive_chi2_mse_coef1  ...  additive_chi2_mse_coef4
-mean                17.968438  ...                 1.019270
-min                  1.149120  ...                 0.913939
-max                176.179126  ...                 1.105897
-
-[3 rows x 4 columns]
-      laplacian_mse_coef1  ...  laplacian_mse_coef4
-mean             4.070173  ...             1.002342
-min              0.703610  ...             0.906720
-max             29.929189  ...             1.059800
-
-[3 rows x 4 columns]
          linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
 mean   4.158889   9.048171   4.070173    4.386528      17.968438   4.070173
 min    0.563531   1.050777   0.703610    0.742926       1.149120   0.703610
@@ -243,7 +179,7 @@ Finding optimal parameters for drug profiles, cell lines and drug features
 linear kernel, best values for parameter: alpha
 {1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}
 
-linear kernel: Execution time: 60.254 seconds 
+linear kernel: Execution time: 63.138 seconds 
 
 sigmoid kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}
@@ -252,7 +188,7 @@ sigmoid kernel, best values for parameter: alpha
 sigmoid kernel, best values for parameter: coef0
 {1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}
 
-sigmoid kernel: Execution time: 159.674 seconds 
+sigmoid kernel: Execution time: 163.260 seconds 
 
 rbf kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -261,7 +197,7 @@ rbf kernel, best values for parameter: alpha
 rbf kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-rbf kernel: Execution time: 176.441 seconds 
+rbf kernel: Execution time: 190.026 seconds 
 
 polynomial kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}
@@ -270,7 +206,7 @@ polynomial kernel, best values for parameter: degree
 polynomial kernel, best values for parameter: alpha
 {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}
 
-polynomial kernel: Execution time: 95.262 seconds 
+polynomial kernel: Execution time: 101.265 seconds 
 
 additive_chi2 kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}
@@ -279,7 +215,7 @@ additive_chi2 kernel, best values for parameter: alpha
 additive_chi2 kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-additive_chi2 kernel: Execution time: 1167.597 seconds 
+additive_chi2 kernel: Execution time: 1192.921 seconds 
 
 laplacian kernel, best values for parameter: gamma
 {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}
@@ -288,7 +224,7 @@ laplacian kernel, best values for parameter: alpha
 laplacian kernel, best values for parameter: coef0
 {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}
 
-laplacian kernel: Execution time: 356.139 seconds 
+laplacian kernel: Execution time: 406.066 seconds 
 
 Tuned parameters:
 {'linear': {'alpha': {1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}, 'coef0': {1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
@@ -300,38 +236,6 @@ rbf 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 
 polynomial 	 {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}
 additive_chi2 	 {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
 laplacian 	 {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}
-      linear_mse_coef1  linear_mse_coef2  linear_mse_coef3  linear_mse_coef4
-mean          4.040812          3.346335       1404.151339          0.957731
-min           0.538864          0.367376        205.242959          0.856210
-max          32.522906         18.896773       5699.682942          1.051967
-      sigmoid_mse_coef1  ...  sigmoid_mse_coef4
-mean           4.386298  ...           1.003939
-min            0.742900  ...           0.907494
-max           32.994555  ...           1.064753
-
-[3 rows x 4 columns]
-      rbf_mse_coef1  rbf_mse_coef2  rbf_mse_coef3  rbf_mse_coef4
-mean       4.070173       4.366293    1403.859893       1.002342
-min        0.703610       0.845050     205.227777       0.906720
-max       29.929189      17.210427    5699.666201       1.059800
-      polynomial_mse_coef1  ...  polynomial_mse_coef4
-mean              4.386519  ...              1.002414
-min               0.742925  ...              0.906816
-max              32.996972  ...              1.059278
-
-[3 rows x 4 columns]
-      additive_chi2_mse_coef1  ...  additive_chi2_mse_coef4
-mean                17.968438  ...                 1.019270
-min                  1.149120  ...                 0.913939
-max                176.179126  ...                 1.105897
-
-[3 rows x 4 columns]
-      laplacian_mse_coef1  ...  laplacian_mse_coef4
-mean             4.070173  ...             1.002342
-min              0.703610  ...             0.906720
-max             29.929189  ...             1.059800
-
-[3 rows x 4 columns]
          linear    sigmoid        rbf  polynomial  additive_chi2  laplacian
 mean   4.040812   4.386298   4.070173    4.386519      17.968438   4.070173
 min    0.538864   0.742900   0.703610    0.742925       1.149120   0.703610
@@ -355,5 +259,5 @@ min   0.856210  0.907494  0.906720    0.906816       0.913939   0.906720
 max   1.051967  1.064753  1.059800    1.059278       1.105897   1.059800
 Coefficient: 4, best kernel: linear
 Best Kernels: {1: 'linear', 2: 'linear', 3: 'additive_chi2', 4: 'linear'}
-2020-07-15 19:27:24 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-15 19:27:24 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-9f8f7f5f-d78b-4e3c-9a7d-bb73e4ed71f1
+2020-07-15 11:15:55 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-15 11:15:55 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-308b0b15-b6fe-4919-ad49-abf056cf26c4
