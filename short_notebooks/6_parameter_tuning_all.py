@@ -22,8 +22,8 @@ from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
 
 # from IPython.display import display
-_FOLDER = "results/"
-# _FOLDER = "/home/acq18mk/master/results/"
+#_FOLDER = "results/"
+_FOLDER = "/home/acq18mk/master/results/"
 
 ### Coding Part
 
@@ -467,6 +467,10 @@ print("\nBetter presentation:")
 for key in results:
     print(key,"\t", results[key])
 
-best_kernels, compared_means = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, column_not_to_use=column_not_to_use, best_parameters_dict = results, print_results=True)
+best_kernels, compared_means = TrainTestBestParameters(df, drug_ids, 4, kernels = kernels_to_test, 
+                                                       column_not_to_use=column_not_to_use, 
+                                                       best_parameters_dict = results, 
+                                                       features_to_scale=columns_for_normalisation, scaling = True,
+                                                       print_results=True)
 print("Best Kernels:", best_kernels)
 compared_means.to_csv(_FOLDER+"kernel_learning_4.csv")
