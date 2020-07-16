@@ -16,12 +16,12 @@ from sklearn.metrics import mean_absolute_error
 import gc
 
 from sklearn.model_selection import LeaveOneOut
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
-# _FOLDER = "/home/acq18mk/master/results/"
-_FOLDER = "results/"
+_FOLDER = "/home/acq18mk/master/results/"
+#_FOLDER = "results/"
 
 ### Coding Part
 
@@ -70,7 +70,7 @@ def TuneParametersLasso(merged_df, drug_ids, number_coefficients, column_not_to_
         indexes_train = indexes[:train_size]
         if scaling:
             train=merged_df_i.loc[indexes_train, X_columns].copy()
-            scaler = StandardScaler()
+            scaler = MinMaxScaler()
             train[columns_for_normalisation] = scaler.fit_transform(train[columns_for_normalisation])
             X_train = train.values     
         else:
@@ -130,7 +130,7 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, train_ratio=0.
         if scaling:
             train = merged_df_i.loc[indexes_train, X_columns].copy()
             test = merged_df_i.loc[indexes_test, X_columns].copy()
-            scaler = StandardScaler()
+            scaler = MinMaxScaler()
             scaler.fit(train[columns_for_normalisation])
             train[columns_for_normalisation] = scaler.transform(train[columns_for_normalisation])
             X_train = train.values  
@@ -207,8 +207,9 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
+df_results.to_csv(_FOLDER+"Lasso_1.csv")
 
 ### Finding optimal parameters for drug profiles, cell lines and drug description
 
@@ -231,8 +232,9 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
+df_results.to_csv(_FOLDER+"Lasso_2.csv")
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
@@ -252,13 +254,19 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
+df_results.to_csv(_FOLDER+"Lasso_3.csv")
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
 
 print("\nFinding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
+
+param1 = ["param_" +str(i) for i in range(10)]
+param2 = ["param" +str(i) for i in range(10)] 
+norm_response  = ["norm_cells_"+str(i) for i in range(10)]
+con_columns  = ["fd_num_"+str(i) for i in range(10)]
 
 potential_columns_for_normalisation = []
 for col in df.columns:
@@ -278,6 +286,8 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                               features_to_scale=columns_for_normalisation, scaling= True,
                               print_results=True)
 
-TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+df_results= TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, features_to_scale=columns_for_normalisation, scaling= True,
                     metrics = "mse", file_name="scaled", print_results=False)
+ 
+df_results.to_csv(_FOLDER+"Lasso_4.csv")
