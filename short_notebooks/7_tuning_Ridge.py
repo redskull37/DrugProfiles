@@ -224,52 +224,52 @@ column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonym
 
 ### Finding optimal parameters for just drug profiles and cell lines
 
-# print("\nFinding optimal parameters for just drug profiles and cell lines\n")
-# df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
+print("\nFinding optimal parameters for just drug profiles and cell lines\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
-# gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-# drug_ids = list(gr[gr > 50].index)
-# len(drug_ids)
+gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+drug_ids = list(gr[gr > 50].index)
+len(drug_ids)
 
-# param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-# param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
-
-
-# results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
-#                          param_tested_solvers = param_tested_solvers, print_results=False)
-
-# print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-#                                      alpha=results["alpha"],
-#                                      solver = results["solver"],
-#                                     metrics = "mse", print_results=False))
+param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
+param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
 
 
-# ### Finding optimal parameters for drug profiles, cell lines and drug description
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
+                         param_tested_solvers = param_tested_solvers, print_results=False)
 
-# print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
-# df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
-
-# # OHE and dumnies columns for Target_Pathway - 21 new columns
-# df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
-
-# column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
-#                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
-
-# gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
-# drug_ids = list(gr[gr > 50].index)
-# len(drug_ids)
-
-# param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-# param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
+print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                                     alpha=results["alpha"],
+                                     solver = results["solver"],
+                                    metrics = "mse", print_results=False))
 
 
-# results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
-#                          param_tested_solvers = param_tested_solvers, print_results=False)
+### Finding optimal parameters for drug profiles, cell lines and drug description
 
-# print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-#                                      alpha=results["alpha"],
-#                                      solver = results["solver"],
-#                                     metrics = "mse", print_results=False))
+print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
+
+# OHE and dumnies columns for Target_Pathway - 21 new columns
+df = pd.concat([df, pd.get_dummies(df["Target_Pathway"])], axis=1).drop("Target_Pathway", axis=1)
+
+column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
+                     "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
+
+gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+drug_ids = list(gr[gr > 50].index)
+len(drug_ids)
+
+param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
+param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
+
+
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
+                         param_tested_solvers = param_tested_solvers, print_results=False)
+
+print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                                     alpha=results["alpha"],
+                                     solver = results["solver"],
+                                    metrics = "mse", print_results=False))
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
