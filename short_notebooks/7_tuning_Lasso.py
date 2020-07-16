@@ -16,11 +16,12 @@ from sklearn.metrics import mean_absolute_error
 import gc
 
 from sklearn.model_selection import LeaveOneOut
+from sklearn.preprocessing import StandardScaler
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
-_FOLDER = "/home/acq18mk/master/results/"
-
+# _FOLDER = "/home/acq18mk/master/results/"
+_FOLDER = "results/"
 
 ### Coding Part
 
@@ -45,8 +46,9 @@ def LeaveOneOutError(model, X, y, metrics = "mse"):
 
 
 def TuneParametersLasso(merged_df, drug_ids, number_coefficients, column_not_to_use =[], 
-                       param_tested = "alpha", param_tested_values = [], 
-                       print_results=True):
+                        param_tested = "alpha", param_tested_values = [], 
+                        features_to_scale = [], scaling=False,
+                        print_results=True):
     
     param1 = ["param_" +str(i) for i in range(10)]
     param2 = ["param" +str(i) for i in range(10)] 
@@ -66,7 +68,13 @@ def TuneParametersLasso(merged_df, drug_ids, number_coefficients, column_not_to_
         indexes = np.random.permutation(merged_df_i.index)
         train_size = int(merged_df_i.shape[0]*0.8)
         indexes_train = indexes[:train_size]
-        X_train = merged_df_i.loc[indexes_train, X_columns].values
+        if scaling:
+            train=merged_df_i.loc[indexes_train, X_columns].copy()
+            scaler = StandardScaler()
+            train[columns_for_normalisation] = scaler.fit_transform(train[columns_for_normalisation])
+            X_train = train.values     
+        else:
+            X_train = merged_df_i.loc[indexes_train, X_columns].values
     
         for i in range(number_coefficients):
             y_train = merged_df_i.loc[indexes_train, "param_"+str(i+1)].values
@@ -95,8 +103,8 @@ def TuneParametersLasso(merged_df, drug_ids, number_coefficients, column_not_to_
     return best_values
 
 
-def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, column_not_to_use=[], alpha=1, 
-                     metrics = "mse", print_results=True):
+def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, train_ratio=0.8, column_not_to_use=[], alpha=1, 
+                     metrics = "mse", features_to_scale = [], scaling=False, file_name = "", print_results=True):
     """Training and testing Kernels with the best found hyperparameters"""
     
     param1 = ["param_" +str(i) for i in range(10)]
@@ -106,7 +114,7 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, column_not_to_
 
     not_X_columns = param1 + param2 + norm_response + con_columns + column_not_to_use
     X_columns = set(df.columns) - set(not_X_columns)
-    
+    print(len(X_columns))
     df_errors_test = pd.DataFrame()
 
     for drug_id in drug_ids:
@@ -115,11 +123,22 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, column_not_to_
         
         np.random.seed(123)
         indexes = np.random.permutation(merged_df_i.index)
-        train_size = int(merged_df_i.shape[0]*0.8)
+        train_size = int(merged_df_i.shape[0]*train_ratio)
         indexes_train = indexes[:train_size]
         indexes_test= indexes[train_size:]
-        X_train = merged_df_i.loc[indexes_train, X_columns].values
-        X_test = merged_df_i.loc[indexes_test, X_columns].values
+        
+        if scaling:
+            train = merged_df_i.loc[indexes_train, X_columns].copy()
+            test = merged_df_i.loc[indexes_test, X_columns].copy()
+            scaler = StandardScaler()
+            scaler.fit(train[columns_for_normalisation])
+            train[columns_for_normalisation] = scaler.transform(train[columns_for_normalisation])
+            X_train = train.values  
+            test[columns_for_normalisation] = scaler.transform(test[columns_for_normalisation])
+            X_test = test.values
+        else:
+            X_train = merged_df_i.loc[indexes_train, X_columns].values
+            X_test = merged_df_i.loc[indexes_test, X_columns].values
     
         for i in range(number_coefficients):
 #             param = best_param[i+1]
@@ -134,6 +153,10 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, column_not_to_
                 
             lin_reg = Lasso(alpha = alpha_value)
             lin_reg.fit(X_train, y_train)
+            
+            feature_importance = pd.DataFrame(index=X_columns)
+            feature_importance["coef_"+str(i+1)+"_"+str(drug_id)]=lin_reg.coef_
+            
             y_pred = np.exp(lin_reg.predict(X_test))
                                 
             # mse is more sensitive to different parameters choice
@@ -144,7 +167,8 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, column_not_to_
             else:
                 print("ERROR: Unknown metrics")
             df_errors_test.loc[drug_id, "mse_coef"+str(i+1)] = error
-    
+            
+#     feature_importance.to_csv(_FOLDER+"Lasso_fetures_importance_by_drug"+file_name+".csv")
     df_results = df_errors_test.describe().loc[["mean", "min","max"], :]
     if print_results: 
         print(df_results)
@@ -183,9 +207,8 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-print(TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results,
-                                    metrics = "mse", print_results=False))
+TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                    alpha=results, metrics = "mse", print_results=False)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug description
 
@@ -208,14 +231,13 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-print(TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results,
-                                    metrics = "mse", print_results=False))
+TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                    alpha=results, metrics = "mse", print_results=False)
 
 ### Finding optimal parameters for drug profiles, cell lines and drug features
 
 print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
@@ -230,6 +252,32 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
                        param_tested = "alpha", param_tested_values = param_tested_alphas, 
                        print_results=True)
 
-print(TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results,
-                                    metrics = "mse", print_results=False))
+TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                    alpha=results, metrics = "mse", print_results=False)
+
+### Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
+
+print("\nFinding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
+
+potential_columns_for_normalisation = []
+for col in df.columns:
+    if (df[col].nunique()>2) & (df[col].dtype != "O"):
+        potential_columns_for_normalisation.append(col)
+
+columns_for_normalisation = list(set(potential_columns_for_normalisation) - set(norm_response) - set(param1) - set(param2) -set(['Unnamed: 0', 'DRUG_ID', 'COSMIC_ID',]))
+
+gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+drug_ids = list(gr[gr > 50].index)
+print("Number of drugs for training:", len(drug_ids))
+
+param_tested_alphas = [0, 0.001, 0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
+
+results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_use, 
+                              param_tested = "alpha", param_tested_values = param_tested_alphas, 
+                              features_to_scale=columns_for_normalisation, scaling= True,
+                              print_results=True)
+
+TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                    alpha=results, features_to_scale=columns_for_normalisation, scaling= True,
+                    metrics = "mse", file_name="scaled", print_results=False)
