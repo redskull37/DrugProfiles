@@ -168,3 +168,157 @@ min    0.868246   1.009981   205.227583   0.908154
 max   44.607360  17.123174  5699.666201   1.069279
 2020-07-15 21:39:18 INFO  ShutdownHookManager:54 - Shutdown hook called
 2020-07-15 21:39:18 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-c96973c5-2552-4a8c-bec8-3cbe92f9faa8
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-16 19:06:14 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+Finding optimal parameters for just drug profiles and cell lines
+
+      mse_coef1 0  mse_coef1 0.001  ...  mse_coef1 300  mse_coef1 500
+mean     3.920055         3.377074  ...       1.692086       1.692086
+min      0.012765         0.009105  ...       0.007094       0.007094
+max     33.771397        29.818087  ...      13.479482      13.479482
+
+[3 rows x 12 columns]
+Coefficient 1: ,  Best alpha: 0.50000
+      mse_coef2 0  mse_coef2 0.001  ...  mse_coef2 300  mse_coef2 500
+mean     5.473461         4.482458  ...       2.860091       2.860091
+min      0.021319         0.014490  ...       0.011904       0.011904
+max     43.312975        33.204521  ...      23.225285      23.225285
+
+[3 rows x 12 columns]
+Coefficient 2: ,  Best alpha: 1.00000
+      mse_coef3 0  mse_coef3 0.001  ...  mse_coef3 300  mse_coef3 500
+mean  1299.064771      1171.241161  ...     647.095490     647.095490
+min    133.578140        75.141582  ...      52.349367      52.349367
+max   5403.486363      5094.053005  ...    2540.085561    2540.085561
+
+[3 rows x 12 columns]
+Coefficient 3: ,  Best alpha: 10.00000
+      mse_coef4 0  mse_coef4 0.001  ...  mse_coef4 300  mse_coef4 500
+mean     0.025626         0.020371  ...       0.013967       0.013967
+min      0.007788         0.004969  ...       0.004131       0.004131
+max      0.049254         0.056166  ...       0.035270       0.035270
+
+[3 rows x 12 columns]
+Coefficient 4: ,  Best alpha: 0.10000
+
+Best values for parameter: alpha
+{1: 0.5, 2: 1.0, 3: 10.0, 4: 0.1}
+
+ Execution time for tuning alpha: 187.240 seconds
+1073
+
+Finding optimal parameters for drug profiles, cell lines and drug description
+
+      mse_coef1 0  mse_coef1 0.001  ...  mse_coef1 300  mse_coef1 500
+mean     3.920055         3.377074  ...       1.692086       1.692086
+min      0.012765         0.009105  ...       0.007094       0.007094
+max     33.771397        29.818087  ...      13.479482      13.479482
+
+[3 rows x 12 columns]
+Coefficient 1: ,  Best alpha: 0.50000
+      mse_coef2 0  mse_coef2 0.001  ...  mse_coef2 300  mse_coef2 500
+mean     5.473461         4.482458  ...       2.860091       2.860091
+min      0.021319         0.014490  ...       0.011904       0.011904
+max     43.312975        33.204521  ...      23.225285      23.225285
+
+[3 rows x 12 columns]
+Coefficient 2: ,  Best alpha: 1.00000
+      mse_coef3 0  mse_coef3 0.001  ...  mse_coef3 300  mse_coef3 500
+mean  1299.064771      1171.241161  ...     647.095490     647.095490
+min    133.578140        75.141582  ...      52.349367      52.349367
+max   5403.486363      5094.053005  ...    2540.085561    2540.085561
+
+[3 rows x 12 columns]
+Coefficient 3: ,  Best alpha: 10.00000
+      mse_coef4 0  mse_coef4 0.001  ...  mse_coef4 300  mse_coef4 500
+mean     0.025626         0.020371  ...       0.013967       0.013967
+min      0.007788         0.004969  ...       0.004131       0.004131
+max      0.049254         0.056166  ...       0.035270       0.035270
+
+[3 rows x 12 columns]
+Coefficient 4: ,  Best alpha: 0.10000
+
+Best values for parameter: alpha
+{1: 0.5, 2: 1.0, 3: 10.0, 4: 0.1}
+
+ Execution time for tuning alpha: 189.016 seconds
+1094
+
+Finding optimal parameters for drug profiles, cell lines and drug features
+
+      mse_coef1 0  mse_coef1 0.001  ...  mse_coef1 300  mse_coef1 500
+mean     3.920055         3.377074  ...       1.692086       1.692086
+min      0.012765         0.009105  ...       0.007094       0.007094
+max     33.771397        29.818087  ...      13.479482      13.479482
+
+[3 rows x 12 columns]
+Coefficient 1: ,  Best alpha: 0.50000
+      mse_coef2 0  mse_coef2 0.001  ...  mse_coef2 300  mse_coef2 500
+mean     5.473461         4.482458  ...       2.860091       2.860091
+min      0.021319         0.014490  ...       0.011904       0.011904
+max     43.312975        33.204521  ...      23.225285      23.225285
+
+[3 rows x 12 columns]
+Coefficient 2: ,  Best alpha: 1.00000
+      mse_coef3 0  mse_coef3 0.001  ...  mse_coef3 300  mse_coef3 500
+mean  1299.064771      1171.241161  ...     647.095490     647.095490
+min    133.578140        75.141582  ...      52.349367      52.349367
+max   5403.486363      5094.053005  ...    2540.085561    2540.085561
+
+[3 rows x 12 columns]
+Coefficient 3: ,  Best alpha: 10.00000
+      mse_coef4 0  mse_coef4 0.001  ...  mse_coef4 300  mse_coef4 500
+mean     0.025626         0.020371  ...       0.013967       0.013967
+min      0.007788         0.004969  ...       0.004131       0.004131
+max      0.049254         0.056166  ...       0.035270       0.035270
+
+[3 rows x 12 columns]
+Coefficient 4: ,  Best alpha: 0.10000
+
+Best values for parameter: alpha
+{1: 0.5, 2: 1.0, 3: 10.0, 4: 0.1}
+
+ Execution time for tuning alpha: 187.289 seconds
+1073
+
+Finding optimal parameters for drug profiles, cell lines and drug features with scaling
+
+Number of drugs for training: 11
+      mse_coef1 0  mse_coef1 0.001  ...  mse_coef1 300  mse_coef1 500
+mean     3.920055         3.377074  ...       1.692086       1.692086
+min      0.012765         0.009105  ...       0.007094       0.007094
+max     33.771397        29.818087  ...      13.479482      13.479482
+
+[3 rows x 12 columns]
+Coefficient 1: ,  Best alpha: 0.50000
+      mse_coef2 0  mse_coef2 0.001  ...  mse_coef2 300  mse_coef2 500
+mean     5.473461         4.482458  ...       2.860091       2.860091
+min      0.021319         0.014490  ...       0.011904       0.011904
+max     43.312975        33.204521  ...      23.225285      23.225285
+
+[3 rows x 12 columns]
+Coefficient 2: ,  Best alpha: 1.00000
+      mse_coef3 0  mse_coef3 0.001  ...  mse_coef3 300  mse_coef3 500
+mean  1299.064771      1171.241161  ...     647.095490     647.095490
+min    133.578140        75.141582  ...      52.349367      52.349367
+max   5403.486363      5094.053005  ...    2540.085561    2540.085561
+
+[3 rows x 12 columns]
+Coefficient 3: ,  Best alpha: 10.00000
+      mse_coef4 0  mse_coef4 0.001  ...  mse_coef4 300  mse_coef4 500
+mean     0.025626         0.020371  ...       0.013967       0.013967
+min      0.007788         0.004969  ...       0.004131       0.004131
+max      0.049254         0.056166  ...       0.035270       0.035270
+
+[3 rows x 12 columns]
+Coefficient 4: ,  Best alpha: 0.10000
+
+Best values for parameter: alpha
+{1: 0.5, 2: 1.0, 3: 10.0, 4: 0.1}
+
+ Execution time for tuning alpha: 191.642 seconds
+1122
+2020-07-16 19:18:57 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-16 19:18:57 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-4db2507c-849b-436f-8ab5-cf3df41cdb02
