@@ -157,7 +157,7 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, train_ratio=0.
             feature_importance = pd.DataFrame(index=X_columns)
             feature_importance["coef_"+str(i+1)+"_"+str(drug_id)]=lin_reg.coef_
             
-            y_pred = np.exp(lin_reg.predict(X_test))
+            y_pred = lin_reg.predict(X_test)
                                 
             # mse is more sensitive to different parameters choice
             if metrics == "mse":
@@ -210,6 +210,7 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
 df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_1.csv")
+print(df_results)
 
 ### 2. Finding optimal parameters for drug profiles, cell lines and drug description
 
@@ -235,6 +236,7 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
 df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_2.csv")
+print(df_results)
 
 ### 3. Finding optimal parameters for drug profiles, cell lines and drug features
 
@@ -257,7 +259,7 @@ results = TuneParametersLasso(df, drug_ids, 4, column_not_to_use=column_not_to_u
 df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_to_use,
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_3.csv")
-
+print(df_results)
 ### 4. Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
 
 print("\n4. Finding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
@@ -291,3 +293,4 @@ df_results= TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_t
                     metrics = "mse", file_name="scaled", print_results=False)
  
 df_results.to_csv(_FOLDER+"Lasso_4.csv")
+print(df_results)

@@ -16,7 +16,7 @@ from sklearn.metrics import mean_absolute_error
 import gc
 
 from sklearn.model_selection import LeaveOneOut
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
@@ -139,7 +139,7 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, column_not_to_use =
                                      param_tested = "solver", 
                                      param_tested_values = param_tested_solvers, 
                                      alpha = 1,
-                                     features_to_scale = features_to_scale, scaling=True,
+                                     features_to_scale = features_to_scale, scaling=scaling,
                                      print_results=print_results)
 
     results["solver"] = best_solver
@@ -150,7 +150,7 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, column_not_to_use =
                                     param_tested = "alpha", 
                                     param_tested_values = param_tested_alphas, 
                                     solver = best_solver,
-                                    features_to_scale = features_to_scale, scaling=True,
+                                    features_to_scale = features_to_scale, scaling=scaling,
                                     print_results=print_results)
             
     print("\n Execution time for tuning alpha: %.3f seconds" % (time.time() - start_time))
@@ -213,7 +213,7 @@ def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[
                 
             lin_reg = Ridge(alpha = alpha_value, solver = solver_value)
             lin_reg.fit(X_train, y_train)
-            y_pred = np.exp(lin_reg.predict(X_test))
+            y_pred = lin_reg.predict(X_test)
                                 
             # mse is more sensitive to different parameters choice
             if metrics == "mse":
@@ -228,6 +228,7 @@ def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[
     if print_results: 
         print(df_results)
     return df_results
+
 
 ### Analytical Part
 

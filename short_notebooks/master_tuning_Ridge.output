@@ -1,78 +1,74 @@
 Conda uses environments to load different sets of Python packages
 type conda env list to see the environments availible.
-2020-07-15 17:09:25 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2020-07-17 12:43:06 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 
-Finding optimal parameters for just drug profiles and cell lines
-
-
-Best values for parameter: solver
-{1: 'auto', 2: 'auto', 3: 'sparse_cg', 4: 'sparse_cg'}
-
- Execution time for tuning solver: 65.427 seconds
-
-Best values for parameter: alpha
-{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
-
- Execution time for tuning alpha: 74.028 seconds
-      mse_coef1  mse_coef2    mse_coef3  mse_coef4
-mean   5.952140   5.229572  1403.859866   1.006119
-min    0.878170   1.175497   205.227555   0.907464
-max   48.810668  17.367879  5699.666201   1.067944
-
-Finding optimal parameters for drug profiles, cell lines and drug description
+1. Finding optimal parameters for just drug profiles and cell lines
 
 
 Best values for parameter: solver
 {1: 'auto', 2: 'auto', 3: 'auto', 4: 'sparse_cg'}
 
- Execution time for tuning solver: 70.177 seconds
+ Execution time for tuning solver: 96.224 seconds
 
 Best values for parameter: alpha
 {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
 
- Execution time for tuning alpha: 67.582 seconds
+ Execution time for tuning alpha: 95.844 seconds
       mse_coef1  mse_coef2    mse_coef3  mse_coef4
-mean   5.952140   5.229572  1403.859866   1.006119
-min    0.878170   1.175497   205.227555   0.907464
-max   48.810668  17.367879  5699.666201   1.067944
+mean   1.918141   1.557542   837.781572   0.012865
+min    0.006980   0.021061    17.257911   0.002040
+max   17.279189  15.205843  3001.720577   0.034735
 
-Finding optimal parameters for drug profiles, cell lines and drug features
+2. Finding optimal parameters for drug profiles, cell lines and drug description
 
 
 Best values for parameter: solver
 {1: 'auto', 2: 'auto', 3: 'sparse_cg', 4: 'sparse_cg'}
 
- Execution time for tuning solver: 68.733 seconds
+ Execution time for tuning solver: 99.747 seconds
 
 Best values for parameter: alpha
 {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
 
- Execution time for tuning alpha: 74.120 seconds
+ Execution time for tuning alpha: 108.597 seconds
       mse_coef1  mse_coef2    mse_coef3  mse_coef4
-mean   5.952140   5.229572  1403.859866   1.006119
-min    0.878170   1.175497   205.227555   0.907464
-max   48.810668  17.367879  5699.666201   1.067944
-2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-15 17:16:59 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-1a13babf-5aa3-4cab-83c3-974d58bc83cd
-Conda uses environments to load different sets of Python packages
-type conda env list to see the environments availible.
-2020-07-15 21:37:58 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+mean   1.918141   1.557542   837.797013   0.012865
+min    0.006980   0.021061    17.258481   0.002040
+max   17.279189  15.205843  3001.720226   0.034735
 
-Finding optimal parameters for drug profiles, cell lines and drug features
+3. Finding optimal parameters for drug profiles, cell lines and drug features
 
 
 Best values for parameter: solver
 {1: 'auto', 2: 'auto', 3: 'auto', 4: 'sparse_cg'}
 
- Execution time for tuning solver: 64.152 seconds
+ Execution time for tuning solver: 94.739 seconds
 
 Best values for parameter: alpha
 {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
 
- Execution time for tuning alpha: 63.180 seconds
+ Execution time for tuning alpha: 95.670 seconds
       mse_coef1  mse_coef2    mse_coef3  mse_coef4
-mean   5.952140   5.229572  1403.859866   1.006119
-min    0.878170   1.175497   205.227555   0.907464
-max   48.810668  17.367879  5699.666201   1.067944
-2020-07-15 21:40:14 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-07-15 21:40:14 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-74a5d3b8-36a1-4b31-a1bd-ae8d258ad81d
+mean   1.918141   1.557542   837.781572   0.012865
+min    0.006980   0.021061    17.257911   0.002040
+max   17.279189  15.205843  3001.720577   0.034735
+
+4. Finding optimal parameters for drug profiles, cell lines and drug features with scaling
+
+Number of drugs for training: 11
+
+Best values for parameter: solver
+{1: 'auto', 2: 'auto', 3: 'auto', 4: 'sparse_cg'}
+
+ Execution time for tuning solver: 98.561 seconds
+
+Best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+ Execution time for tuning alpha: 91.930 seconds
+      mse_coef1  mse_coef2    mse_coef3  mse_coef4
+mean   1.918141   1.557542   837.781572   0.012865
+min    0.006980   0.021061    17.257911   0.002040
+max   17.279189  15.205843  3001.720577   0.034735
+2020-07-17 12:56:14 INFO  ShutdownHookManager:54 - Shutdown hook called
+2020-07-17 12:56:14 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-b3a8d64a-d37e-43b4-ae70-b20a7b95e21c

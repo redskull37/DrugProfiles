@@ -1,5 +1,5 @@
 #!/bin/bash
-#$ -l h_rt=8:00:00  #time needed
+#$ -l h_rt=2:00:00  #time needed
 #$ -pe smp 6 #number of cores
 #$ -l rmem=2G #number of memory
 #$ -o master_tuning_Ridge.output #This is where your output and errors are logged.

@@ -1,0 +1,7 @@
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-17 17:53:43 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Dealing with ready train and test data!!!
+
+1. Finding optimal parameters for just drug profiles and cell lines
+
