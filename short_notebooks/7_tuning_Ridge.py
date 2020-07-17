@@ -16,11 +16,12 @@ from sklearn.metrics import mean_absolute_error
 import gc
 
 from sklearn.model_selection import LeaveOneOut
+from sklearn.preprocessing import StandardScaler
 import os
 from data_preprocessing import FilteringCurves, ShowResponseCurves
 from fitting_curves import FittingColumn, ShowResponseCurvesWithFitting, compute_r2_score
 _FOLDER = "/home/acq18mk/master/results/"
-
+#_FOLDER = "results/"
 
 ### Coding Part
 
@@ -44,7 +45,11 @@ def LeaveOneOutError(model, X, y, metrics = "mse"):
     return (sum(errors)/ len(errors)) 
 
 
-def RunCrossValidation(merged_df, drug_ids, number_coefficients, column_not_to_use =[], param_tested = "alpha", param_tested_values = [], alpha=1, solver= "auto", print_results=True):
+def RunCrossValidation(merged_df, drug_ids, number_coefficients, column_not_to_use =[], 
+                       param_tested = "alpha", param_tested_values = [],
+                       alpha=1, solver= "auto", 
+                       features_to_scale = [], scaling=False,
+                       print_results=True):
     
     param1 = ["param_" +str(i) for i in range(10)]
     param2 = ["param" +str(i) for i in range(10)] 
@@ -63,7 +68,14 @@ def RunCrossValidation(merged_df, drug_ids, number_coefficients, column_not_to_u
         indexes = np.random.permutation(merged_df_i.index)
         train_size = int(merged_df_i.shape[0]*0.8)
         indexes_train = indexes[:train_size]
-        X_train = merged_df_i.loc[indexes_train, X_columns].values
+        
+        if scaling:
+            train=merged_df_i.loc[indexes_train, X_columns].copy()
+            scaler = MinMaxScaler()
+            train[columns_for_normalisation] = scaler.fit_transform(train[columns_for_normalisation])
+            X_train = train.values     
+        else:
+            X_train = merged_df_i.loc[indexes_train, X_columns].values
     
         for i in range(number_coefficients):
             #check whether each coefficient needs its own parameters
@@ -116,7 +128,9 @@ def RunCrossValidation(merged_df, drug_ids, number_coefficients, column_not_to_u
     return best_values
 
 def TuneParameters(merged_df, drug_ids, number_coefficients, column_not_to_use =[], 
-                   param_tested_alphas = [], param_tested_solvers = [], print_results=True):
+                   param_tested_alphas = [], param_tested_solvers = [], 
+                   features_to_scale = [], scaling=False,
+                   print_results=True):
     
     results = {}
     
@@ -125,6 +139,7 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, column_not_to_use =
                                      param_tested = "solver", 
                                      param_tested_values = param_tested_solvers, 
                                      alpha = 1,
+                                     features_to_scale = features_to_scale, scaling=True,
                                      print_results=print_results)
 
     results["solver"] = best_solver
@@ -135,17 +150,16 @@ def TuneParameters(merged_df, drug_ids, number_coefficients, column_not_to_use =
                                     param_tested = "alpha", 
                                     param_tested_values = param_tested_alphas, 
                                     solver = best_solver,
+                                    features_to_scale = features_to_scale, scaling=True,
                                     print_results=print_results)
             
     print("\n Execution time for tuning alpha: %.3f seconds" % (time.time() - start_time))
     results["alpha"] = best_alpha
     
-    
-
     return  results
 
 def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[], alpha=1, solver ="auto", 
-                     metrics = "mse", print_results=True):
+                     metrics = "mse", features_to_scale = [], scaling=False, print_results=True):
     """Training and testing Kernels with the best found hyperparameters"""
     
     param1 = ["param_" +str(i) for i in range(10)]
@@ -161,14 +175,25 @@ def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[
     for drug_id in drug_ids:
         # merged_df_i has lower shape
         merged_df_i = merged_df[merged_df["DRUG_ID"]==drug_id]
-        
+    
         np.random.seed(123)
         indexes = np.random.permutation(merged_df_i.index)
         train_size = int(merged_df_i.shape[0]*0.8)
         indexes_train = indexes[:train_size]
-        indexes_test= indexes[train_size:]
-        X_train = merged_df_i.loc[indexes_train, X_columns].values
-        X_test = merged_df_i.loc[indexes_test, X_columns].values
+        indexes_test = indexes[train_size:]
+        
+        if scaling:
+            train=merged_df_i.loc[indexes_train, X_columns].copy()
+            test = merged_df_i.loc[indexes_test, X_columns].copy()
+            scaler = MinMaxScaler()
+            scaler.fit(train[columns_for_normalisation])
+            train[columns_for_normalisation] = scaler.transform(train[columns_for_normalisation])
+            test[columns_for_normalisation] = scaler.transform(test[columns_for_normalisation])
+            X_train = train.values
+            X_test = test.values 
+        else:
+            X_train = merged_df_i.loc[indexes_train, X_columns].values
+            X_test = merged_df_i.loc[indexes_test, X_columns].values
     
         for i in range(number_coefficients):
 #             param = best_param[i+1]
@@ -219,13 +244,13 @@ def TestTunedModel(merged_df, drug_ids, number_coefficients, column_not_to_use=[
 #     filter merged data so that they have only drug with features 
 #     <br>for both data frames (original drug features and with added pubchem features)
 
+### 1. Finding optimal parameters for just drug profiles and cell lines
+
+print("\n1. Finding optimal parameters for just drug profiles and cell lines\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
+
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
-
-### Finding optimal parameters for just drug profiles and cell lines
-
-print("\nFinding optimal parameters for just drug profiles and cell lines\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
 gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
 drug_ids = list(gr[gr > 50].index)
@@ -235,18 +260,21 @@ param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
 param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
 
 
-results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
-                         param_tested_solvers = param_tested_solvers, print_results=False)
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, 
+                         param_tested_alphas=param_tested_alphas,
+                         param_tested_solvers = param_tested_solvers, 
+                         print_results=False)
 
-print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results["alpha"],
-                                     solver = results["solver"],
-                                    metrics = "mse", print_results=False))
+df_results = TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                            alpha=results["alpha"], solver = results["solver"],
+                            metrics = "mse", print_results=False)
 
+df_results.to_csv(_FOLDER+"Ridge_1.csv")
+print(df_results)
 
-### Finding optimal parameters for drug profiles, cell lines and drug description
+### 2. Finding optimal parameters for drug profiles, cell lines and drug description
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
+print("\n2. Finding optimal parameters for drug profiles, cell lines and drug description\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 # OHE and dumnies columns for Target_Pathway - 21 new columns
@@ -263,18 +291,21 @@ param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
 param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
 
 
-results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, 
+                         param_tested_alphas=param_tested_alphas,
                          param_tested_solvers = param_tested_solvers, print_results=False)
 
-print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results["alpha"],
-                                     solver = results["solver"],
-                                    metrics = "mse", print_results=False))
+df_results = TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                            alpha=results["alpha"], solver = results["solver"],
+                            metrics = "mse", print_results=False)
 
-### Finding optimal parameters for drug profiles, cell lines and drug features
+df_results.to_csv(_FOLDER+"Ridge_2.csv")
+print(df_results)
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
-df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
+### 3. Finding optimal parameters for drug profiles, cell lines and drug features
+
+print("\n3. Finding optimal parameters for drug profiles, cell lines and drug features\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
                      "elements", "inchi_key", "canonical_smiles", "inchi_string", "third_target", "first_target", "molecular_formula", "second_target", "Target_Pathway"]
@@ -287,10 +318,52 @@ param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
 param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
 
 
-results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, param_tested_alphas=param_tested_alphas,
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, 
+                         param_tested_alphas=param_tested_alphas,
                          param_tested_solvers = param_tested_solvers, print_results=False)
 
-print(TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
-                                     alpha=results["alpha"],
-                                     solver = results["solver"],
-                                    metrics = "mse", print_results=False))
+df_results = TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                            alpha=results["alpha"], solver = results["solver"],
+                            metrics = "mse", print_results=False)
+
+df_results.to_csv(_FOLDER+"Ridge_3.csv")
+print(df_results)
+
+
+### 4. Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
+
+print("\n4. Finding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
+df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
+
+param1 = ["param_" +str(i) for i in range(10)]
+param2 = ["param" +str(i) for i in range(10)] 
+norm_response  = ["norm_cells_"+str(i) for i in range(10)]
+con_columns  = ["fd_num_"+str(i) for i in range(10)]
+
+potential_columns_for_normalisation = []
+for col in df.columns:
+    if (df[col].nunique()>2) & (df[col].dtype != "O"):
+        potential_columns_for_normalisation.append(col)
+
+columns_for_normalisation = list(set(potential_columns_for_normalisation) - set(norm_response) - set(param1) - set(param2) -set(['Unnamed: 0', 'DRUG_ID', 'COSMIC_ID',]))
+
+gr = df.groupby(["DRUG_ID"])["COSMIC_ID"].count()
+drug_ids = list(gr[gr > 50].index)
+print("Number of drugs for training:", len(drug_ids))
+param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
+param_tested_solvers = ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
+
+
+results = TuneParameters(df, drug_ids, 4, column_not_to_use=column_not_to_use, 
+                         param_tested_alphas=param_tested_alphas,
+                         param_tested_solvers = param_tested_solvers, 
+                         features_to_scale=columns_for_normalisation, scaling= True,
+                         print_results=False)
+
+df_results = TestTunedModel(df, drug_ids, 4, column_not_to_use= column_not_to_use,
+                            alpha=results["alpha"], solver = results["solver"], metrics = "mse", 
+                            features_to_scale=columns_for_normalisation, scaling= True,
+                            print_results=False)
+
+df_results.to_csv(_FOLDER+"Ridge_4.csv")
+print(df_results)

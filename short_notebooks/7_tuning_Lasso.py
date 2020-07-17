@@ -189,9 +189,9 @@ def TestTunedModelLasso(merged_df, drug_ids, number_coefficients, train_ratio=0.
 #     filter merged data so that they have only drug with features 
 #     <br>for both data frames (original drug features and with added pubchem features)
 
-### Finding optimal parameters for just drug profiles and cell lines
+### 1. Finding optimal parameters for just drug profiles and cell lines
 
-print("\nFinding optimal parameters for just drug profiles and cell lines\n")
+print("\n1. Finding optimal parameters for just drug profiles and cell lines\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv').drop(["Drug_Name","Target_Pathway"], axis=1)
 
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
@@ -211,9 +211,9 @@ df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_1.csv")
 
-### Finding optimal parameters for drug profiles, cell lines and drug description
+### 2. Finding optimal parameters for drug profiles, cell lines and drug description
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug description\n")
+print("\n2. Finding optimal parameters for drug profiles, cell lines and drug description\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 # OHE and dumnies columns for Target_Pathway - 21 new columns
@@ -236,9 +236,9 @@ df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_2.csv")
 
-### Finding optimal parameters for drug profiles, cell lines and drug features
+### 3. Finding optimal parameters for drug profiles, cell lines and drug features
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug features\n")
+print("\n3. Finding optimal parameters for drug profiles, cell lines and drug features\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_description.csv')
 
 column_not_to_use = ["Unnamed: 0", "COSMIC_ID", "DRUG_ID", "Drug_Name", "Synonyms", "Target", "deriv_found", "PubChem_ID",
@@ -258,9 +258,9 @@ df_results = TestTunedModelLasso(df, drug_ids, 4, column_not_to_use= column_not_
                     alpha=results, metrics = "mse", print_results=False)
 df_results.to_csv(_FOLDER+"Lasso_3.csv")
 
-### Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
+### 4. Finding optimal parameters for drug profiles, cell lines and drug features with SCALING
 
-print("\nFinding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
+print("\n4. Finding optimal parameters for drug profiles, cell lines and drug features with scaling\n")
 df = pd.read_csv(_FOLDER+'merged_fitted_sigmoid4_123_with_drugs_properties.csv')
 
 param1 = ["param_" +str(i) for i in range(10)]
