@@ -1,0 +1,40 @@
+1. Training for each drug and the whole data
+- difference in tuned parameters?
+- difference in results?
+
+2. ordinal Lasso and Ridge 
+-coefficients as pointers to feature importance
+
+3. Epsilon-Support Vector Regression.
+
+3. meaning and values of sigmoid coefficients
+sigmoid_4_param(x, x0, L, k, d):
+    """ Comparing with Dennis Wang's sigmoid:
+    x0 -  p - position, correlation with IC50 or EC50
+        bounds [0, 1]
+    L = 1 in Dennis Wang's sigmoid, protect from devision by zero if x is too small 
+        L<1 inverted sigmoid, l=100 - lower upper and lower boundso sigmpoid on y axis (y= [0.1, 0.11])
+        bounds [0.8, 10]
+    k = -1/s (s -shape parameter)  default = -10 k=0 straight line, k<0 sigmoid around k=-10
+        bounds [1, -100]
+    d - determines the vertical position of the sigmoid - shift on y axis - better fitting then Dennis Wang's sigmoid
+         bounds [0, 0.9]
+    parameters_bound ((0, 0.8, -100, 0), (1, 10, 1, 0.9))
+    """
+    y =  1/ (L + np.exp(-k*(x-x0))) + d
+
+mean values of coefficients in filtered data
+
+param_1: x0 = [-12.73, 10.32] mean = 0.595 ;  25-75% [0.39-0.50]
+param_2: L = [-35, 31.90]     mean = 1.015 ;  25-75% [1.01-1.20]
+param_3: k = =[-282.7, 10.08] mean = -18.72 ; 25-75%[-20.4 , -8.7]
+param_4: d = [-2.79, 1.79]    mean = 0.083 ;  25-75% [0.005, 0.174]
+
+- distribution curve for found parameters?
+
+
+4. What if I take some "average" sigmoid and apply it as a filtering criteria
+how many samples will have R2 > 0.9?
+
+5. what if we do not predict param_3 as it has not normal distribution but assume that it is constant for all the cases?
+
