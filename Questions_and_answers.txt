@@ -1,6 +1,46 @@
+Best results:
+
+#1. just drug profiles and cell lines
+
+kernel_parameters_df1 = {'linear': {'alpha': {1: 200.0, 2: 100.0, 3: 100.0, 4: 50.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 0.01}, 'coef0': {1: 10.0, 2: 10.0, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
+
+best_kernels_for_coef_df1 = {1: 'sigmoid', 2: 'polynomial', 3: 'polynomial', 4: 'sigmoid'}
+
+
+# 2. drug profiles, cell lines and drug description
+
+kernel_parameters_df2 = {'linear': {'alpha': {1: 200.0, 2: 100.0, 3: 100.0, 4: 100.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 0.5, 2: 0.5, 3: 1e-05, 4: 0.01}, 'coef0': {1: -0.1, 2: -0.1, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
+
+
+best_kernels_for_coef_df2 = {1: 'polynomial', 2: 'polynomial', 3: 'polynomial', 4: 'sigmoid'}
+
+# 3. drug profiles, cell lines and drug features
+
+kernel_parameters_df3 = {'linear': {'alpha': {1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 0.01, 3: 1e-05, 4: 1e-05}, 'coef0': {1: 10.0, 2: -0.1, 3: -0.1, 4: -0.1}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 3.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
+
+best_kernels_for_coef_df3 = {1: 'polynomial', 2: 'sigmoid', 3: 'linear', 4: 'sigmoid'}
+
+
+# 4. drug profiles, cell lines and drug features with scaling
+
+kernel_parameters_df4 = {'linear': {'alpha': {1: 300.0, 2: 200.0, 3: 100.0, 4: 100.0}}, 'sigmoid': {'alpha': {1: 5.0, 2: 5.0, 3: 1.0, 4: 0.5}, 'gamma': {1: 0.5, 2: 0.1, 3: 1e-05, 4: 0.01}, 'coef0': {1: -0.1, 2: 1.0, 3: 1.0, 4: 5.0}}, 'rbf': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'polynomial': {'alpha': {1: 5.0, 2: 1.0, 3: 1.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-04}, 'degree': {1: 1.0, 2: 1.0, 3: 1.0, 4: 5.0}}, 'additive_chi2': {'alpha': {1: 500.0, 2: 500.0, 3: 300.0, 4: 300.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-05, 4: 1e-05}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}, 'laplacian': {'alpha': {1: 7.0, 2: 5.0, 3: 5.0, 4: 1.0}, 'gamma': {1: 1e-05, 2: 1e-05, 3: 1e-04, 4: 1e-04}, 'coef0': {1: -0.1, 2: -0.1, 3: -0.1, 4: -0.1}}}
+
+
+best_kernels_for_coef_df4 =  {1: 'polynomial', 2: 'polynomial', 3: 'polynomial', 4: 'sigmoid'}
+
+
 1. Training for each drug and the whole data
 - difference in tuned parameters?
 - difference in results?
+
+
+
+
+
+
+
+
+
 
 2. ordinal Lasso and Ridge 
 -coefficients as pointers to feature importance
@@ -38,3 +78,26 @@ how many samples will have R2 > 0.9?
 
 5. what if we do not predict param_3 as it has not normal distribution but assume that it is constant for all the cases?
 
+# how to do scaling? within drugs of for the predetermined train/test data - done
+# separate function to train and test with best found parameters
+# feature importance - coefficients of Ridge and Lasso regressions as separate dataframes
+
+# Observation: there is no pair drug-cell line with two studied concentration
+# But there are 24 drugs from 265 which have two max concentrations
+# Are these 24 drugs in the "perfect" filtered data? Only 18 of them !!!
+
+#which/how many columns are used in trainings
+-drug profiles and cell lines    Number of X_columns: 1073
+-drug profiles, cell lines and drug description   Number of X_columns: 1094 (21 dumnies from Target columns)
+-drug profiles, cell lines and drug properties    Number of X_columns: 1122 (PubChemFeatures)
+
+# что мне надо:
+предсказанные коэффициенты кривых для тестовых данных
+метрика мне не нужна! - можно посчитать позже и мсе и мае.
+
+вывести предсказанные коэффициенты модели
+отдельно для каждого лекарства?
+потом сравнить с обобщенными данными
+
+то же самое как для kernelRidge, сделать для SVM
+https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html

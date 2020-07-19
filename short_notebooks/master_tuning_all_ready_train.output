@@ -12,3 +12,20 @@ Dealing with ready train and test data!!!
 
 1. Finding optimal parameters for just drug profiles and cell lines
 
+linear kernel, best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+linear kernel: Execution time: 16989.002 seconds 
+
+Conda uses environments to load different sets of Python packages
+type conda env list to see the environments availible.
+2020-07-18 11:53:27 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Dealing with ready train and test data!!!
+
+1. Finding optimal parameters for just drug profiles and cell lines
+
+linear kernel, best values for parameter: alpha
+{1: 500.0, 2: 500.0, 3: 500.0, 4: 500.0}
+
+linear kernel: Execution time: 17597.900 seconds 
+
