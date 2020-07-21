@@ -106,3 +106,12 @@ how many samples will have R2 > 0.9?
 
 то же самое как для kernelRidge, сделать для SVM
 https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html
+
+sm.families()
+
+bayesian regression
+Non linear regression https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab
+decision trees for sparse data
+support vector
+kernel ridge
+https://online.stat.psu.edu/stat504/node/216/
