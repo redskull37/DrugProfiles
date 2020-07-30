@@ -3,7 +3,6 @@ import pandas as pd
 from scipy.stats import norm
 import os
 import matplotlib.pyplot as plt
-%matplotlib inline
 
 from sklearn.svm import SVR
 import statsmodels.api as sm
@@ -11,7 +10,7 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from sklearn.preprocessing import MinMaxScaler
 # import time
 from sklearn.model_selection import GridSearchCV
-
+_FOLDER = "/home/acq18mk/master/results/"
 ### Average sigmoid
 
 # Main idea: get the DataFrame:
@@ -23,8 +22,8 @@ from sklearn.model_selection import GridSearchCV
 
 # So, the first step is to split and concat the new dataset
 
-train_123 = pd.read_csv("results/train08_merged_fitted_sigmoid4_123_with_drugs_properties.csv").drop(['Unnamed: 0', 'Unnamed: 0.1'], axis=1)
-test_123 = pd.read_csv("results/test02_merged_fitted_sigmoid4_123_with_drugs_properties.csv").drop(['Unnamed: 0', 'Unnamed: 0.1'], axis=1)
+train_123 = pd.read_csv(_FOLDER+"train08_merged_fitted_sigmoid4_123_with_drugs_properties.csv").drop(['Unnamed: 0', 'Unnamed: 0.1'], axis=1)
+test_123 = pd.read_csv(_FOLDER+"test02_merged_fitted_sigmoid4_123_with_drugs_properties.csv").drop(['Unnamed: 0', 'Unnamed: 0.1'], axis=1)
 
 
 norm_response  = ["norm_cells_"+str(i) for i in range(10)]
@@ -67,7 +66,6 @@ for col in train_123.columns:
 
 float_columns2 = list(set(float_columns) - set(norm_response) - set(conc_columns)-set(["param_"+str(i) for i in range(1,5)]))
 
-%%time
 for col in int_columns[4:]:
     train_df_full[col] = np.int32(train_df_full[col])
 #     test_df_full[col] = np.int32(test_df_full[col])
