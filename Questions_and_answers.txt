@@ -67,7 +67,7 @@ mean values of coefficients in filtered data
 
 param_1: x0 = [-12.73, 10.32] mean = 0.595 ;  25-75% [0.39-0.50]
 param_2: L = [-35, 31.90]     mean = 1.015 ;  25-75% [1.01-1.20]
-param_3: k = =[-282.7, 10.08] mean = -18.72 ; 25-75%[-20.4 , -8.7]
+param_3: k = [-282.7, 10.08] mean = -18.72 ; 25-75%[-20.4 , -8.7]
 param_4: d = [-2.79, 1.79]    mean = 0.083 ;  25-75% [0.005, 0.174]
 
 - distribution curve for found parameters?
@@ -115,3 +115,10 @@ decision trees for sparse data
 support vector
 kernel ridge
 https://online.stat.psu.edu/stat504/node/216/
+
+sigmoid_Wang - sigmoid_2_param (Wang) y=\frac{1}{1+e^{\frac{x-p}{s}}}
+sigmoid_3_param - sigmoid_3_param     y=\frac{1}{1+e^{-k(x-x_{0})}} +d
+sigmoid_4_param - sigmoid_4_param   y=\frac{1}{1+e^{-k(x-x_{0})}} +d
+logistic_4 - logistic_4_param      y=\frac{a-d}{1+(\frac{x}{c})^{b}}+d
+logLogist_3_param - logLogistR    y = \frac{1-d}{1+(\frac{\textrm{log}\ x}{c})^{b}}+d
+ll4_R y=\frac{a-d}{1+e^{b\cdot \textrm{log}\ x-c}}+d
