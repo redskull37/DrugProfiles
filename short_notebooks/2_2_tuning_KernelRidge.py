@@ -22,8 +22,8 @@ import os
 import scipy as sp
 np.random.seed(123)
 
-# _FOLDER = "/home/acq18mk/master/results/results/"
-_FOLDER = "../results/"
+_FOLDER = "/home/acq18mk/master/results/results/"
+#_FOLDER = "../results/"
 
 ### Coding Part
 
