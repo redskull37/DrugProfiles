@@ -9,7 +9,7 @@ from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
-from sklearn.kernel_ridge import KernelRidge
+from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 import gc
@@ -22,8 +22,8 @@ import os
 import scipy as sp
 np.random.seed(123)
 
-_FOLDER = "/home/acq18mk/master/results/results/"
-# _FOLDER = "../results/"
+# _FOLDER = "/home/acq18mk/master/results/results/"
+_FOLDER = "../results/"
 
 ### Coding Part
 
@@ -70,13 +70,14 @@ X_feat_dict = {"Dataset 1": X_cancer_cell_lines ,
 
 print("Coefficient_1 ....")
 
-print("Linear KernelRidge")
+print("Linear SVR")
 
-param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-param_grid = dict(alpha = param_tested_alphas)
+param_tested_C = [0.01, 0.1, 0.5, 1, 5, 10, 100, 500]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon )
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel= "linear"), param_grid=param_grid, cv=splitter_loo)
+grid = GridSearchCV(SVR(kernel= "linear"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -95,7 +96,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "linear", alpha=grid.best_params_["alpha"])
+        model = SVR(kernel = "linear", epsilon = grid.best_params_["epsilon"], C=grid.best_params_["C"])
         model.fit(Xtrain_drug, y_train_drug)
         Xtest_drug = scaler.transform(test_drug[X_columns])
         
@@ -103,24 +104,25 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Linear_KernelRidge_coef1.csv")
+results.to_csv(_FOLDER+"Linear_SVR_coef1.csv")
 
-print("Sigmoid KernelRidge")
+print("Sigmoid SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -139,7 +141,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "sigmoid", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -149,26 +151,26 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Sigmoid_KernelRidge_coef1.csv")
+results.to_csv(_FOLDER+"Sigmoid_SVR_coef1.csv")
 
-print("RBF KernelRidge")
+print("RBF SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -187,7 +189,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "rbf", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "rbf", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -197,27 +199,28 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"RBF_KernelRidge_coef1.csv")
+results.to_csv(_FOLDER+"RBF_SVR_coef1.csv")
 
 print("Polynomial KernelRidge")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "poly"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -236,7 +239,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "polynomial", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "poly", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"], degree = grid.best_params_["degree"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -246,8 +249,8 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "best_degree" + str(i)] = grid.best_params_["degree"]
         results.loc[drug_id, "mae_" + str(i)] = mae
@@ -255,19 +258,20 @@ for drug_id in drug_ids_50:
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"PolynomialKernelRidge_coef1.csv")
+results.to_csv(_FOLDER+"Polynomial_SVR_coef1.csv")
 
 ### Coefficient_2
 
 print("Coefficient_2 ....")
 
-print("Linear KernelRidge")
+print("Linear SVR")
 
-param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-param_grid = dict(alpha = param_tested_alphas)
+param_tested_C = [0.01, 0.1, 0.5, 1, 5, 10, 100, 500]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon )
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel= "linear"), param_grid=param_grid, cv=splitter_loo)
+grid = GridSearchCV(SVR(kernel= "linear"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -286,7 +290,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "linear", alpha=grid.best_params_["alpha"])
+        model = SVR(kernel = "linear", epsilon = grid.best_params_["epsilon"], C=grid.best_params_["C"])
         model.fit(Xtrain_drug, y_train_drug)
         Xtest_drug = scaler.transform(test_drug[X_columns])
         
@@ -294,24 +298,25 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Linear_KernelRidge_coef2.csv")
+results.to_csv(_FOLDER+"Linear_SVR_coef2.csv")
 
-print("Sigmoid KernelRidge")
+print("Sigmoid SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -330,7 +335,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "sigmoid", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -340,26 +345,26 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Sigmoid_KernelRidge_coef2.csv")
+results.to_csv(_FOLDER+"Sigmoid_SVR_coef2.csv")
 
-print("RBF KernelRidge")
+print("RBF SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -378,7 +383,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "rbf", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -388,27 +393,28 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"RBF_KernelRidge_coef2.csv")
+results.to_csv(_FOLDER+"RBF_SVR_coef2.csv")
 
 print("Polynomial KernelRidge")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "poly"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -427,7 +433,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "polynomial", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "poly", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"], degree = grid.best_params_["degree"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -437,8 +443,8 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "best_degree" + str(i)] = grid.best_params_["degree"]
         results.loc[drug_id, "mae_" + str(i)] = mae
@@ -446,19 +452,20 @@ for drug_id in drug_ids_50:
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"PolynomialKernelRidge_coef2.csv")
+results.to_csv(_FOLDER+"Polynomial_SVR_coef2.csv")
 
 ### Coefficient_3
 
-print("Coefficient_3 ....")
+print("Coefficient_4 ....")
 
-print("Linear KernelRidge")
+print("Linear SVR")
 
-param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-param_grid = dict(alpha = param_tested_alphas)
+param_tested_C = [0.01, 0.1, 0.5, 1, 5, 10, 100, 500]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon )
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel= "linear"), param_grid=param_grid, cv=splitter_loo)
+grid = GridSearchCV(SVR(kernel= "linear"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -477,7 +484,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "linear", alpha=grid.best_params_["alpha"])
+        model = SVR(kernel = "linear", epsilon = grid.best_params_["epsilon"], C=grid.best_params_["C"])
         model.fit(Xtrain_drug, y_train_drug)
         Xtest_drug = scaler.transform(test_drug[X_columns])
         
@@ -485,24 +492,25 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Linear_KernelRidge_coef3.csv")
+results.to_csv(_FOLDER+"Linear_SVR_coef3.csv")
 
-print("Sigmoid KernelRidge")
+print("Sigmoid SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -521,7 +529,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "sigmoid", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -531,26 +539,26 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Sigmoid_KernelRidge_coef3.csv")
+results.to_csv(_FOLDER+"Sigmoid_SVR_coef3.csv")
 
-print("RBF KernelRidge")
+print("RBF SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -569,7 +577,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "rbf", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -579,27 +587,28 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"RBF_KernelRidge_coef3.csv")
+results.to_csv(_FOLDER+"RBF_SVR_coef3.csv")
 
 print("Polynomial KernelRidge")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "poly"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -618,7 +627,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "polynomial", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "poly", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"], degree = grid.best_params_["degree"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -628,8 +637,8 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "best_degree" + str(i)] = grid.best_params_["degree"]
         results.loc[drug_id, "mae_" + str(i)] = mae
@@ -637,19 +646,20 @@ for drug_id in drug_ids_50:
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"PolynomialKernelRidge_coef3.csv")
+results.to_csv(_FOLDER+"Polynomial_SVR_coef3.csv")
 
 ### Coefficient_4
 
 print("Coefficient_4 ....")
 
-print("Linear KernelRidge")
+print("Linear SVR")
 
-param_tested_alphas = [0.01, 0.1, 0.5, 1, 5, 10, 50, 100, 300, 500]
-param_grid = dict(alpha = param_tested_alphas)
+param_tested_C = [0.01, 0.1, 0.5, 1, 5, 10, 100, 500]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon )
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel= "linear"), param_grid=param_grid, cv=splitter_loo)
+grid = GridSearchCV(SVR(kernel= "linear"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -668,7 +678,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "linear", alpha=grid.best_params_["alpha"])
+        model = SVR(kernel = "linear", epsilon = grid.best_params_["epsilon"], C=grid.best_params_["C"])
         model.fit(Xtrain_drug, y_train_drug)
         Xtest_drug = scaler.transform(test_drug[X_columns])
         
@@ -676,24 +686,25 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Linear_KernelRidge_coef4.csv")
+results.to_csv(_FOLDER+"Linear_SVR_coef4.csv")
 
-print("Sigmoid KernelRidge")
+print("Sigmoid SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "sigmoid"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -712,7 +723,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "sigmoid", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -722,26 +733,26 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"Sigmoid_KernelRidge_coef4.csv")
+results.to_csv(_FOLDER+"Sigmoid_SVR_coef4.csv")
 
-print("RBF KernelRidge")
+print("RBF SVR")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "rbf"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -760,7 +771,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = SVR(kernel = "rbf", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -770,27 +781,28 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "mae_" + str(i)] = mae
         results.loc[drug_id, "mse_" + str(i)] = mse
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"RBF_KernelRidge_coef4.csv")
+results.to_csv(_FOLDER+"RBF_SVR_coef4.csv")
 
 print("Polynomial KernelRidge")
 
-param_tested_alphas = [0.1, 0.5, 1, 5, 10, 50, 100, 500]
-param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
+param_tested_epsilon = [0.001, 0.01, 0.1, 1, 2, 5]
+param_tested_C = [0.1, 0.5, 1, 5, 10, 100, 500]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(C = param_tested_C, epsilon = param_tested_epsilon, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
-grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
+grid = GridSearchCV(SVR(kernel = "poly"), param_grid = param_grid, cv = splitter_loo)
 
 results = pd.DataFrame(index = drug_ids_50)
 
@@ -809,7 +821,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "polynomial", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "poly", C=grid.best_params_["C"], epsilon = grid.best_params_["epsilon"],
                            coef0= grid.best_params_["coef0"], degree = grid.best_params_["degree"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -819,8 +831,8 @@ for drug_id in drug_ids_50:
         mse = mean_squared_error(y_test_drug, y_pred)
         mae = mean_absolute_error(y_test_drug, y_pred)
         
-        results.loc[drug_id, "best_alpha" + str(i)] = grid.best_params_["alpha"]
-        results.loc[drug_id, "best_gamma" + str(i)] = grid.best_params_["gamma"]
+        results.loc[drug_id, "best_C" + str(i)] = grid.best_params_["C"]
+        results.loc[drug_id, "best_epsilon" + str(i)] = grid.best_params_["epsilon"]
         results.loc[drug_id, "best_coef0" + str(i)] = grid.best_params_["coef0"]
         results.loc[drug_id, "best_degree" + str(i)] = grid.best_params_["degree"]
         results.loc[drug_id, "mae_" + str(i)] = mae
@@ -828,4 +840,4 @@ for drug_id in drug_ids_50:
     del train_drug
     del test_drug
 
-results.to_csv(_FOLDER+"PolynomialKernelRidge_coef4.csv")
+results.to_csv(_FOLDER+"Polynomial_SVR_coef4.csv")

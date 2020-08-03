@@ -22,8 +22,8 @@ import os
 import scipy as sp
 np.random.seed(123)
 
-_FOLDER = "/home/acq18mk/master/results/results/"
-# _FOLDER = "../results/"
+# _FOLDER = "/home/acq18mk/master/results/results/"
+_FOLDER = "../results/"
 
 ### Coding Part
 
@@ -214,7 +214,8 @@ param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
 grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
@@ -378,7 +379,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "rbf", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -405,7 +406,8 @@ param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
 grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
@@ -569,7 +571,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "rbf", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -596,7 +598,8 @@ param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
 grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
@@ -760,7 +763,7 @@ for drug_id in drug_ids_50:
         grid.fit(Xtrain_drug, y_train_drug)
         
          # Pick the best parameterds, train again and predict on the test data
-        model = KernelRidge(kernel = "sigmoid", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
+        model = KernelRidge(kernel = "rbf", alpha=grid.best_params_["alpha"], gamma = grid.best_params_["gamma"],
                            coef0= grid.best_params_["coef0"])
         
         model.fit(Xtrain_drug, y_train_drug)
@@ -787,7 +790,8 @@ param_tested_gamma = [0.00001, 0.0001, 0.01, 0.1, 1]
 param_tested_coef0 = [0.01, 0.1, 0.5, 1, 5]
 param_tested_degree = [1, 2, 3, 4, 5]
 
-param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0)
+param_grid = dict(alpha = param_tested_alphas, gamma = param_tested_gamma, coef0 = param_tested_coef0,
+                 degree = param_tested_degree)
 
 splitter_loo = LeaveOneOut()
 grid = GridSearchCV(KernelRidge(kernel = "polynomial"), param_grid = param_grid, cv = splitter_loo)
