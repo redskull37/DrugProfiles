@@ -7,3 +7,9 @@ data/
 drugs/
 results/
 short_notebooks/__pycache__/*
+results_2/
+GridSearch_results/
+figures/
+master_code/
+master_code.zip
+master_report.pdf
