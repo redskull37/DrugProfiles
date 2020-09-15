@@ -6,7 +6,7 @@ ccle/
 data/
 drugs/
 results/
-short_notebooks/__pycache__/*
+short_notebooks/
 results_2/
 GridSearch_results/
 figures/

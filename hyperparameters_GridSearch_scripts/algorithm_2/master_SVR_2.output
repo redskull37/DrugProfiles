@@ -1,9 +1,0 @@
-Conda uses environments to load different sets of Python packages
-type conda env list to see the environments availible.
-2020-08-03 14:15:12 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-Traceback (most recent call last):
-  File "/home/acq18mk/master/short_notebooks/2_3_tuning_SVR.py", line 30, in <module>
-    with open(_FOLDER + "drug_ids_50.txt", 'r') as f:
-FileNotFoundError: [Errno 2] No such file or directory: '../results/drug_ids_50.txt'
-2020-08-03 14:15:40 INFO  ShutdownHookManager:54 - Shutdown hook called
-2020-08-03 14:15:40 INFO  ShutdownHookManager:54 - Deleting directory /tmp/spark-e8587429-6254-42df-b20c-f0961f7c642d
